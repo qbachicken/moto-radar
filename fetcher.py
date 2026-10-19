@@ -531,7 +531,7 @@ def fetch_and_parse():
                         distance_km = dist
 
                     subcat = classify_subcategory(text_lower, title)
-                    is_important = (subcat != "Zlot / Spot / Spotkanie")
+                    is_important = False
 
                     raw_events.append({
                         "title": title,
@@ -540,8 +540,8 @@ def fetch_and_parse():
                         "location": loc,
                         "locationType": location_type,
                         "distanceKm": distance_km,
-                        "autoStarred": is_important,
-                        "starred": is_important,
+                        "autoStarred": False,
+                        "starred": False,
                         "date": date_str,
                         "source": link,
                     })
@@ -595,8 +595,6 @@ def fetch_and_parse():
                 # Upgrade subCategory if existing is general Zlot and new is specific
                 if existing['subCategory'] == "Zlot / Spot / Spotkanie" and ev['subCategory'] != "Zlot / Spot / Spotkanie":
                     existing['subCategory'] = ev['subCategory']
-                    existing['autoStarred'] = True
-                    existing['starred'] = True
                 break
         if not is_dup:
             events.append(ev)
