@@ -443,9 +443,8 @@ def fetch_and_parse():
                     title, full_desc = clean_title_and_desc(text, link)
 
                     # Detect location (check exact city words or sensible fallback)
-                    loc = "Warszawa"
-                    for city in CITIES:
-                        # Match whole word / phrase so 'góra' doesn't false-trigger easily unless specified
+                    loc = "Skierniewice"
+                    for city, coords in CITIES.items():
                         pattern = r'\b' + re.escape(city) + r'\b'
                         if re.search(pattern, text_lower):
                             loc = city.title()
