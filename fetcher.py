@@ -42,6 +42,8 @@ CITIES = {
     "kłodawa": (52.2478, 18.9056),
     "ełk": (53.8285, 22.3708),
     "pustynia siedlecka": (50.4167, 19.6833),
+    "jura": (50.5833, 19.5833),
+    "wał pomorski": (53.3000, 16.2000),
     "gołdap": (54.3167, 22.3000),
     "ignalin": (50.6000, 17.4000),
     "jelenia góra": (50.9044, 15.7197),
@@ -265,9 +267,13 @@ def clean_title_and_desc(raw_text, url):
 
 
 def synthesize_title(loc, subcat):
+    if loc == "Nieznana":
+        if "rajd" in subcat.lower() or "offroad" in subcat.lower():
+            return "Rally offroad 4x4"
+        return "Jeep - spotkanie terenowe"
     if "rajd" in subcat.lower() or "offroad" in subcat.lower():
-        return f"Rajd 4x4 w miejscowości {loc}"
-    return f"Zlot i spot motoryzacyjny - {loc}"
+        return f"Rally offroad - {loc}"
+    return f"Jeep - spotkanie w {loc}"
 
 
 def fold_pl(text):
@@ -477,7 +483,18 @@ def fetch_and_parse():
                         coords = get_coords(loc)
                         dist = round(haversine(HOME_LAT, HOME_LON, coords[0], coords[1]))
                     else:
-                        dist = 0
+                        if "jura" in text_lower:
+                            loc = "Jura"
+                        elif "wygryzów" in text_lower or "wygryzow" in text_lower:
+                            loc = "Pustynia Siedlecka"
+                        elif "pomorski" in text_lower or "głusko" in text_lower or "glusko" in text_lower:
+                            loc = "Wał Pomorski"
+
+                        if loc != "Nieznana":
+                            coords = get_coords(loc)
+                            dist = round(haversine(HOME_LAT, HOME_LON, coords[0], coords[1]))
+                        else:
+                            dist = 0
 
                     subcat = "Rajd / Offroad" if any(
                         k in text_lower for k in OFFROAD_KEYWORDS
