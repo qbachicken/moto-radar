@@ -39,6 +39,7 @@ CITIES = {
     "toruń": (53.0138, 18.5984),
     "radom": (51.4027, 21.1471),
     "góra kalwaria": (51.9833, 21.2167),
+    "kłodawa": (52.2478, 18.9056),
     "ełk": (53.8285, 22.3708),
     "pustynia siedlecka": (50.4167, 19.6833),
     "gołdap": (54.3167, 22.3000),
@@ -261,6 +262,12 @@ def clean_title_and_desc(raw_text, url):
         title = full_desc[:80]
 
     return title.strip().capitalize(), full_desc
+
+
+def synthesize_title(loc, subcat):
+    if "rajd" in subcat.lower() or "offroad" in subcat.lower():
+        return f"Rajd 4x4 w miejscowości {loc}"
+    return f"Zlot i spot motoryzacyjny - {loc}"
 
 
 def fold_pl(text):
@@ -557,6 +564,10 @@ def fetch_and_parse():
         # Skip domain-name titles
         if re.fullmatch(r"[a-z]+\.[a-z]+", title.strip().lower()):
             continue
+
+        # If title contains question marks or lacks letters, synthesize a clean professional summary title
+        if '?' in title or not re.search(r'[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]', title):
+            ev['title'] = synthesize_title(ev['location'], ev['subCategory'])
 
         # Skip entries whose description is mostly ? or empty-looking
         clean_desc = re.sub(r'[\s\d.?]+', '', desc)
