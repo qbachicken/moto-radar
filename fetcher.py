@@ -463,16 +463,21 @@ def fetch_and_parse():
 
                     title, full_desc = clean_title_and_desc(text, link)
 
-                    # Detect location (check exact city words or sensible fallback)
-                    loc = "Skierniewice"
+                    # Detect location (check exact city words, excluding generic organizer skierniewice mentions)
+                    loc = "Nieznana"
                     for city, coords in CITIES.items():
+                        if city == "skierniewice":
+                            continue
                         pattern = r'\b' + re.escape(city) + r'\b'
                         if re.search(pattern, text_lower):
                             loc = city.title()
                             break
 
-                    coords = get_coords(loc)
-                    dist = round(haversine(HOME_LAT, HOME_LON, coords[0], coords[1]))
+                    if loc != "Nieznana":
+                        coords = get_coords(loc)
+                        dist = round(haversine(HOME_LAT, HOME_LON, coords[0], coords[1]))
+                    else:
+                        dist = 0
 
                     subcat = "Rajd / Offroad" if any(
                         k in text_lower for k in OFFROAD_KEYWORDS
@@ -529,6 +534,12 @@ def fetch_and_parse():
                 # Keep a real source link over a fallback
                 if ev['source'].startswith("http") and not existing['source'].startswith("http"):
                     existing['source'] = ev['source']
+
+                # Upgrade location if existing is Nieznana but new has a real location
+                if existing['location'] == "Nieznana" and ev['location'] != "Nieznana":
+                    existing['location'] = ev['location']
+                    coords = get_coords(ev['location'])
+                    existing['distanceKm'] = round(haversine(HOME_LAT, HOME_LON, coords[0], coords[1]))
 
                 # Upgrade subCategory if the dup is Rajd
                 if ev['subCategory'] == "Rajd / Offroad":

@@ -495,7 +495,7 @@ Oto dane wejściowe:
                     <div class="event-title">${e.title}</div>
                     <div class="event-footer">
                         <span>📅 ${e.date || 'Wkrótce'}</span>
-                        <span class="loc">📍 ${e.location || 'Okolica'} / ${e.distanceKm} km</span>
+                        <span class="loc">📍 ${e.location === 'Nieznana' ? 'Nieznana lokalizacja' : (e.location || 'Okolica') + ' / ' + e.distanceKm + ' km'}</span>
                     </div>
                     <div class="event-details">
                         <p style="margin: 0 0 10px 0; color: #94a3b8; font-size: 0.85rem;">Szczegóły wydarzenia:</p>
