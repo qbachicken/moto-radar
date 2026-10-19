@@ -53,6 +53,32 @@ CITIES = {
     "ogrodzieniec": (50.4500, 19.5167),
     "pilica": (50.4667, 19.6500),
     "kąty wrocławskie": (51.0333, 16.7667),
+    "rutka-tartak": (54.2833, 22.9167),
+    "maroko": (31.7917, -7.0926),
+    "rumunia": (45.9432, 24.9668),
+    "gorce": (49.5500, 20.1000),
+    "spisz": (49.3833, 20.3167),
+    "kudowianka": (50.4397, 16.2417),
+    "lubuski": (52.3441, 15.4389),
+    "świętokrzyskie": (50.8804, 20.6438),
+    "drawsko": (53.5333, 16.0500),
+    "kołobrzeg": (54.1759, 15.5832),
+    "jordania": (30.5852, 36.2384),
+    "tunezja": (33.8869, 9.5375),
+    "sudeckie": (50.7500, 16.3333),
+    "pomorski": (53.8000, 17.5000),
+    "jurajskie": (50.5833, 19.5833),
+    "załuski": (52.4833, 20.6167),
+    "nieporęt": (52.4333, 21.0333),
+    "złotopolice": (52.6167, 20.5833),
+    "sulejów": (51.3500, 19.8833),
+    "białystok": (53.1325, 23.1688),
+    "olsztyn": (53.7784, 20.4801),
+    "rzeszów": (50.0413, 21.9990),
+    "szczawnica": (54.4167, 18.5667),
+    "zakopane": (49.2992, 19.9496),
+    "wisła": (49.6559, 18.8596),
+    "bielsko": (49.8224, 19.0444),
 }
 
 MONTHS_PL = {
@@ -162,6 +188,9 @@ def extract_title_from_text(text):
     # Remove leading date like "23.10.2026" or "23-10-2026"
     t = re.sub(r"^\s*\d{1,2}[./-]\d{1,2}[./-]\d{2,4}\s*", "", text)
 
+    # If the text starts with a city or region name followed by dash or space, clean it
+    t = re.sub(r"^(?:skierniewice|łódź|warszawa|kielce|radom|góra kalwaria|kroczyce|skarżysko|zamość|głowaczów|trzcianka|ogrodzieniec|pilica|rutka-tartak|maroko|rumunia|gorce|lubuski|świętokrzyskie|drawsko|kołobrzeg|jordania|tunezja)\b\s*[-–—:]*\s*", "", t, flags=re.I)
+
     # Split at the first inline date pattern
     t = re.split(
         r'\b\d{1,2}[./-]\d{1,2}[./-]\d{2,4}\b'
@@ -189,12 +218,12 @@ def extract_title_from_text(text):
 def clean_title_and_desc(raw_text, url):
     full_desc = re.sub(r'\s+', ' ', raw_text).strip()
 
-    # Priority 1: URL slug gives a clean, full title
-    title = slug_to_title(url)
+    # Priority 1: extract from text content first (more descriptive for user)
+    title = extract_title_from_text(full_desc)
 
-    # Priority 2: extract from text content
-    if not title:
-        title = extract_title_from_text(full_desc)
+    # Priority 2: URL slug if text didn't yield a good title
+    if not title or len(title) < 4:
+        title = slug_to_title(url)
 
     # Fallback: first sentence
     if not title:
@@ -413,10 +442,12 @@ def fetch_and_parse():
 
                     title, full_desc = clean_title_and_desc(text, link)
 
-                    # Detect location
-                    loc = "Okolica"
+                    # Detect location (check exact city words or sensible fallback)
+                    loc = "Warszawa"
                     for city in CITIES:
-                        if city in text_lower:
+                        # Match whole word / phrase so 'góra' doesn't false-trigger easily unless specified
+                        pattern = r'\b' + re.escape(city) + r'\b'
+                        if re.search(pattern, text_lower):
                             loc = city.title()
                             break
 
@@ -494,8 +525,8 @@ def fetch_and_parse():
         title = ev['title']
         desc = ev.get('fullDescription', '')
 
-        # Skip events with pure-number titles
-        if re.fullmatch(r"\d{1,4}", title.strip()):
+        # Skip events where title is just a generic fragment or url-like
+        if len(title) < 3 or re.fullmatch(r"https?://.*", title):
             continue
 
         # Skip events with query-param-polluted titles
