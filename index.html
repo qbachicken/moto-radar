@@ -205,6 +205,12 @@
         <small style="color: var(--text-muted); display: block; margin-top: 4px;">Klucz zapisuje się wyłącznie w Twojej przeglądarce (localStorage).</small>
 
         <button class="btn-ai" onclick="runGroqAIOptimization()" style="margin-top: 12px;">✨ Usprawnij wydarzenia przez Groq AI</button>
+
+        <div style="border-top: 1px solid #334155; margin-top: 16px; padding-top: 14px;">
+            <h3 style="margin-bottom: 8px;">➕ Dodaj wydarzenie ręcznie</h3>
+            <textarea id="settingsFbPaste" placeholder="Wklej nazwę, datę i miejscowość..." rows="2" style="background:#0f172a; color:white; border:1px solid #334155; padding:10px; border-radius:8px; width:100%; box-sizing:border-box; font-size:0.9rem; margin-bottom:8px;"></textarea>
+            <button class="btn-primary" onclick="addFromSettingsFacebook()">Dodaj do bazy</button>
+        </div>
     </div>
 
     <div class="card">
@@ -549,8 +555,9 @@ Oto dane wejściowe:
         let newEv = {
             title: title,
             fullDescription: text,
-            subCategory: isOffroad ? "Rajd / Offroad" : "Zlot / Spot",
+            subCategory: isOffroad ? "Rajd Przeprawowy / Trophy" : "Zlot / Spot / Spotkanie",
             location: "Skierniewice",
+            locationType: "exact",
             distanceKm: 0,
             autoStarred: isOffroad,
             starred: isOffroad,
@@ -562,6 +569,43 @@ Oto dane wejściowe:
         localStorage.setItem('motoradar_custom', JSON.stringify(custom));
         document.getElementById('fbPaste').value = '';
         loadEvents();
+        alert('Dodano wydarzenie pomyślnie!');
+    }
+
+    function addFromSettingsFacebook() {
+        let text = document.getElementById('settingsFbPaste').value.trim();
+        if (!text) return;
+        let lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+        let title = lines[0] || "Wydarzenie z własnego wpisu";
+        let isOffroad = /rajd|offroad|4x4|teren|cross/i.test(text);
+
+        let custom = JSON.parse(localStorage.getItem('motoradar_custom') || '[]');
+        let normTitle = normalizeTitle(title);
+        let exists = custom.some(e => normalizeTitle(e.title) === normTitle) || events.some(e => normalizeTitle(e.title) === normTitle);
+        if (exists) {
+            alert('To wydarzenie znajduje się już w bazie!');
+            document.getElementById('settingsFbPaste').value = '';
+            return;
+        }
+
+        let newEv = {
+            title: title,
+            fullDescription: text,
+            subCategory: isOffroad ? "Rajd Przeprawowy / Trophy" : "Zlot / Spot / Spotkanie",
+            location: "Skierniewice",
+            locationType: "exact",
+            distanceKm: 0,
+            autoStarred: isOffroad,
+            starred: isOffroad,
+            date: "Najbliższy termin",
+            custom: true,
+            source: "https://facebook.com"
+        };
+        custom.push(newEv);
+        localStorage.setItem('motoradar_custom', JSON.stringify(custom));
+        document.getElementById('settingsFbPaste').value = '';
+        loadEvents();
+        alert('Dodano wydarzenie pomyślnie!');
     }
 
     loadEvents();
