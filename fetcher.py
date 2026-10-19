@@ -104,7 +104,7 @@ def parse_date(date_str):
         month = MONTHS_PL.get(m.group(2).lower(), 0)
         if month > 0:
             try:
-                return datetime(2026, month, day)
+                return datetime(datetime.now().year, month, day)
             except ValueError:
                 pass
 
@@ -333,14 +333,14 @@ def fetch_and_parse():
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
     raw_events = []
 
-    now = datetime(2026, 10, 19)
+    now = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
     max_date = now + timedelta(days=75)
 
     for name, url, fallback_link in SOURCES:
         print(f"Fetching {name} from {url}...")
         try:
             req = urllib.request.Request(url, headers=headers)
-            with urllib.request.urlopen(req, timeout=30) as resp:
+            with urllib.request.urlopen(req, timeout=12) as resp:
                 html = resp.read().decode("utf-8", errors="ignore")
                 soup = BeautifulSoup(html, "html.parser")
 
@@ -351,15 +351,15 @@ def fetch_and_parse():
                 if not containers:
                     containers = soup.find_all(["article", "div", "li"])
 
-                # Use only leaf containers to avoid parent/child duplication
-                leaf_containers = []
-                for c in containers:
-                    has_child = any(
-                        child in c.descendants
-                        for child in containers if child != c
-                    )
-                    if not has_child:
-                        leaf_containers.append(c)
+                # Use only leaf containers to avoid parent/child duplication.
+                # The old implementation searched each container's descendants
+                # again for every other container, which became extremely slow
+                # on pages containing many nested divs.
+                container_ids = {id(item) for item in containers}
+                leaf_containers = [
+                    c for c in containers
+                    if not any(id(desc) in container_ids for desc in c.descendants)
+                ]
                 if not leaf_containers:
                     leaf_containers = containers
 
