@@ -262,6 +262,91 @@
     let currentFilter = 'all';
     let pendingUrl = '';
 
+    const MONTHS_PL = {
+        "stycznia": 0, "lutego": 1, "marca": 2, "kwietnia": 3, "maja": 4, "czerwca": 5,
+        "lipca": 6, "sierpnia": 7, "września": 8, "października": 9, "listopada": 10, "grudnia": 11
+    };
+
+    function parseEventDate(dateStr) {
+        if (!dateStr) return null;
+        let s = dateStr.trim().toLowerCase();
+        // Match "24 października" or "23-25 października"
+        let m = s.match(/(\d{1,2})\s+(stycznia|lutego|marca|kwietnia|maja|czerwca|lipca|sierpnia|września|października|listopada|grudnia)/i);
+        if (m) {
+            let day = parseInt(m[1], 10);
+            let month = MONTHS_PL[m[2].toLowerCase()];
+            if (month !== undefined) {
+                let now = new Date();
+                let yr = now.getFullYear();
+                let dt = new Date(yr, month, day);
+                if (dt < new Date(now.getFullYear(), now.getMonth(), now.getDate() - 10) && now.getMonth() === 0) {
+                    dt.setFullYear(yr + 1);
+                }
+                return dt;
+            }
+        }
+        // Match numeric "24.10.2026" or "24/10/26"
+        let m2 = s.match(/(\d{1,2})[./-](\d{1,2})[./-](\d{2,4})/);
+        if (m2) {
+            let day = parseInt(m2[1], 10);
+            let month = parseInt(m2[2], 10) - 1;
+            let yr = m2[3];
+            let year = yr.length === 2 ? 2000 + parseInt(yr, 10) : parseInt(yr, 10);
+            return new Date(year, month, day);
+        }
+        return null;
+    }
+
+    function checkEventNotifications() {
+        let starredEvents = events.filter(e => e.starred || e.autoStarred);
+        if (starredEvents.length === 0) return;
+
+        let now = new Date();
+        let todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        let timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        let notifiedKey = 'motoradar_notified_' + todayMidnight.toDateString();
+        let notifiedSet = JSON.parse(localStorage.getItem(notifiedKey) || '[]');
+
+        starredEvents.forEach((ev, idx) => {
+            let dt = parseEventDate(ev.date);
+            if (!dt) return;
+            let evMidnight = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
+            let diffDays = Math.round((evMidnight - todayMidnight) / (1000 * 60 * 60 * 24));
+
+            // diffDays: -3 (3 dni temu), -2 (2 dni temu), -1 (wczoraj), 0 (dzisiaj)
+            if (diffDays >= -3 && diffDays <= 0) {
+                let uniqueId = ev.title + '_' + ev.date;
+                if (!notifiedSet.includes(uniqueId)) {
+                    notifiedSet.push(uniqueId);
+                    localStorage.setItem(notifiedKey, JSON.stringify(notifiedSet));
+
+                    let whenText = "";
+                    if (diffDays === 0) whenText = `DZISIAJ o godzinie ${timeStr}!`;
+                    else if (diffDays === -1) whenText = `Wczoraj (${ev.date}) o godzinie ${timeStr}`;
+                    else if (diffDays === -2) whenText = `Przedwczoraj (${ev.date}) o godzinie ${timeStr}`;
+                    else whenText = `3 dni temu (${ev.date}) o godzinie ${timeStr}`;
+
+                    triggerBrowserNotification(`🔔 Przypomnienie o obserwowanym wydarzeniu!`, `${ev.title} (${ev.location || 'Okolica'}) miało miejsce/odbywa się: ${whenText}`);
+                }
+            }
+        });
+    }
+
+    function triggerBrowserNotification(title, body) {
+        if ("Notification" in window) {
+            if (Notification.permission === "granted") {
+                new Notification(title, { body: body, icon: 'https://cdn-icons-png.flaticon.com/512/3774/3774278.png' });
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") {
+                        new Notification(title, { body: body, icon: 'https://cdn-icons-png.flaticon.com/512/3774/3774278.png' });
+                    }
+                });
+            }
+        }
+    }
+
     document.getElementById('maxDist').value = settings.maxDist;
     document.getElementById('groqKeyInput').value = groqApiKey;
 
@@ -336,6 +421,7 @@
             }
             events = uniqueEvents;
             renderEvents();
+            checkEventNotifications();
         } catch (e) {
             document.getElementById('eventsList').innerHTML = '<div class="empty-state">Błąd pobierania danych.</div>';
         }
