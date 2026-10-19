@@ -116,6 +116,12 @@ OFFROAD_KEYWORDS = [
     "ssv", "extreme", "wyczyn",
 ]
 
+APPROXIMATE_REGIONS = {
+    "jura", "jurajskie", "wał pomorski", "śląsk", "zagłębie", "gorce",
+    "spisz", "kotlina jeleniogórska", "sudeckie", "pomorski", "lubuski",
+    "świętokrzyskie", "pustynia siedlecka", "pustynia błędowska"
+}
+
 
 def haversine(lat1, lon1, lat2, lon2):
     R = 6371.0
@@ -494,7 +500,7 @@ def fetch_and_parse():
 
                     if loc != "Nieznana":
                         coords = get_coords(loc)
-                        dist = round(haversine(HOME_LAT, HOME_LON, coords[0], coords[1]))
+                        dist = round(haversine(HOME_LAT, HOME_LON, coords[0], coords[1])) if coords else None
                     else:
                         if "jura" in text_lower:
                             loc = "Jura"
@@ -509,9 +515,20 @@ def fetch_and_parse():
 
                         if loc != "Nieznana":
                             coords = get_coords(loc)
-                            dist = round(haversine(HOME_LAT, HOME_LON, coords[0], coords[1]))
+                            dist = round(haversine(HOME_LAT, HOME_LON, coords[0], coords[1])) if coords else None
                         else:
-                            dist = 0
+                            dist = None
+
+                    loc_lower = loc.lower()
+                    if loc == "Nieznana" or not loc:
+                        location_type = "unknown"
+                        distance_km = None
+                    elif loc_lower in APPROXIMATE_REGIONS:
+                        location_type = "approximate"
+                        distance_km = dist
+                    else:
+                        location_type = "exact"
+                        distance_km = dist
 
                     subcat = classify_subcategory(text_lower, title)
                     is_important = (subcat != "Zlot / Spot / Spotkanie")
@@ -521,7 +538,8 @@ def fetch_and_parse():
                         "fullDescription": full_desc,
                         "subCategory": subcat,
                         "location": loc,
-                        "distanceKm": dist,
+                        "locationType": location_type,
+                        "distanceKm": distance_km,
                         "autoStarred": is_important,
                         "starred": is_important,
                         "date": date_str,

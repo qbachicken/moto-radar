@@ -277,12 +277,27 @@
             localStorage.removeItem('motoradar_ai_optimized');
 
             let combined = [...localCustom, ...data];
+            let approxRegions = ["Jura", "Wał Pomorski", "Śląsk", "Zagłębie", "Jurajskie", "Gorce", "Spisz", "Kotlina Jeleniogórska", "Sudeckie", "Pomorski", "Lubuski", "Świętokrzyskie", "Pustynia Siedlecka", "Pustynia Błędowska"];
             let uniqueEvents = [];
             for (let ev of combined) {
                 if (ev.subCategory === "Rajd / Offroad" || ev.subCategory === "Rajd") {
                     ev.subCategory = "Rajd Przeprawowy / Trophy";
                 } else if (ev.subCategory === "Zlot / Spot" || ev.subCategory === "Zlot") {
                     ev.subCategory = "Zlot / Spot / Spotkanie";
+                }
+                if ((!ev.location || ev.location === "Nieznana") && ev.distanceKm === 0) {
+                    ev.distanceKm = null;
+                    ev.locationType = "unknown";
+                }
+                if (!ev.locationType) {
+                    if (!ev.location || ev.location === "Nieznana") {
+                        ev.locationType = "unknown";
+                        ev.distanceKm = null;
+                    } else if (approxRegions.includes(ev.location)) {
+                        ev.locationType = "approximate";
+                    } else {
+                        ev.locationType = "exact";
+                    }
                 }
                 let normT = normalizeTitle(ev.title);
                 let d = (ev.date || '').trim().toLowerCase();
