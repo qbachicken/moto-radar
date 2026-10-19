@@ -274,10 +274,16 @@
             let res = await fetch('events.json?_=' + Date.now());
             let data = await res.json();
             let localCustom = JSON.parse(localStorage.getItem('motoradar_custom') || '[]');
+            localStorage.removeItem('motoradar_ai_optimized');
 
             let combined = [...localCustom, ...data];
             let uniqueEvents = [];
             for (let ev of combined) {
+                if (ev.subCategory === "Rajd / Offroad" || ev.subCategory === "Rajd") {
+                    ev.subCategory = "Rajd Przeprawowy / Trophy";
+                } else if (ev.subCategory === "Zlot / Spot" || ev.subCategory === "Zlot") {
+                    ev.subCategory = "Zlot / Spot / Spotkanie";
+                }
                 let normT = normalizeTitle(ev.title);
                 let d = (ev.date || '').trim().toLowerCase();
                 let dup = uniqueEvents.find(existing => {
