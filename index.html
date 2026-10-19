@@ -207,6 +207,17 @@
         <button class="btn-ai" onclick="runGroqAIOptimization()" style="margin-top: 12px;">✨ Usprawnij wydarzenia przez Groq AI</button>
 
         <div style="border-top: 1px solid #334155; margin-top: 16px; padding-top: 14px;">
+            <h3 style="margin-bottom: 8px;">📱 Instalacja aplikacji</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Zainstaluj MotoRadar na telefonie (PWA), aby uruchamiać go jak zwykłą aplikację z ekranu głównego.</p>
+            <button class="btn-primary" id="installBtn" style="display:none; background: var(--accent-green);">📲 Zainstaluj aplikację</button>
+            <div id="installInstructions" style="font-size: 0.82rem; color: var(--text-muted); background: #0f172a; padding: 10px; border-radius: 8px; border: 1px solid #334155;">
+                <b>Jak zainstalować w Chrome na telefonie:</b><br>
+                1. Kliknij menu (trzy kropki w prawym górnym rogu przeglądarki).<br>
+                2. Wybierz <b>"Dodaj do ekranu głównego"</b> lub <b>"Zainstaluj aplikację"</b>.
+            </div>
+        </div>
+
+        <div style="border-top: 1px solid #334155; margin-top: 16px; padding-top: 14px;">
             <h3 style="margin-bottom: 8px;">➕ Dodaj wydarzenie ręcznie</h3>
             <textarea id="settingsFbPaste" placeholder="Wklej nazwę, datę i miejscowość..." rows="2" style="background:#0f172a; color:white; border:1px solid #334155; padding:10px; border-radius:8px; width:100%; box-sizing:border-box; font-size:0.9rem; margin-bottom:8px;"></textarea>
             <button class="btn-primary" onclick="addFromSettingsFacebook()">Dodaj do bazy</button>
@@ -609,6 +620,34 @@ Oto dane wejściowe:
     }
 
     loadEvents();
+
+    // PWA Service Worker Registration & Install Prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        let btn = document.getElementById('installBtn');
+        if (btn) {
+            btn.style.display = 'block';
+            btn.onclick = async () => {
+                deferredPrompt.prompt();
+                let choiceResult = await deferredPrompt.userChoice;
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                }
+                deferredPrompt = null;
+                btn.style.display = 'none';
+            };
+        }
+    });
+
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('ServiceWorker registered successfully:', reg.scope))
+                .catch(err => console.log('ServiceWorker registration failed:', err));
+        });
+    }
 </script>
 </body>
 </html>
