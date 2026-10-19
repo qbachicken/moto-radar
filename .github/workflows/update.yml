@@ -11,6 +11,7 @@ permissions:
 jobs:
   update-events:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,8 +26,9 @@ jobs:
           pip install requests beautifulsoup4
 
       - name: Run fetcher
+        timeout-minutes: 4
         run: |
-          python fetcher.py
+          python -u fetcher.py
 
       - name: Commit and push if changed
         run: |
