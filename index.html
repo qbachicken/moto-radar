@@ -216,8 +216,11 @@
     <div class="filters">
         <button class="filter-btn active" onclick="setFilter('all', this)">Wszystkie</button>
         <button class="filter-btn" onclick="setFilter('starred', this)">⭐ Ważne</button>
-        <button class="filter-btn" onclick="setFilter('rajd', this)">🚜 Rajdy / Offroad</button>
-        <button class="filter-btn" onclick="setFilter('zlot', this)">🚗 Zloty</button>
+        <button class="filter-btn" onclick="setFilter('Rajd Przeprawowy / Trophy', this)">🚜 Rajdy</button>
+        <button class="filter-btn" onclick="setFilter('Wyprawa Turystyczna / 4x4', this)">🧭 Wyprawy</button>
+        <button class="filter-btn" onclick="setFilter('Szkolenie / Trening', this)">🎓 Szkolenia</button>
+        <button class="filter-btn" onclick="setFilter('Tor / Wyścig / Time Attack', this)">🏁 Tory</button>
+        <button class="filter-btn" onclick="setFilter('Zlot / Spot / Spotkanie', this)">🚗 Zloty</button>
     </div>
 
     <div id="eventsList">Ładowanie...</div>
@@ -394,7 +397,7 @@ Zwróć wynik WYŁĄCZNIE jako tablicę JSON w formacie:
     "cleanDesc": "...",
     "date": "...",
     "location": "...",
-    "subCategory": "Rajd / Offroad lub Zlot / Spot",
+    "subCategory": "Jedna z 5 dokładnych podkategorii: Rajd Przeprawowy / Trophy, Wyprawa Turystyczna / 4x4, Szkolenie / Trening, Tor / Wyścig / Time Attack, Zlot / Spot / Spotkanie",
     "source": "..."
   },
   ...
@@ -467,8 +470,7 @@ Oto dane wejściowe:
         let filtered = events.filter(e => {
             if (e.distanceKm > settings.maxDist) return false;
             if (currentFilter === 'starred' && !e.starred && !e.autoStarred) return false;
-            if (currentFilter === 'rajd' && e.subCategory !== 'Rajd / Offroad') return false;
-            if (currentFilter === 'zlot' && e.subCategory !== 'Zlot / Spot') return false;
+            if (currentFilter !== 'all' && currentFilter !== 'starred' && e.subCategory !== currentFilter) return false;
             return true;
         });
 

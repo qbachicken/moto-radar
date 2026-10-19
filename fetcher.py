@@ -266,12 +266,25 @@ def clean_title_and_desc(raw_text, url):
     return title.strip().capitalize(), full_desc
 
 
+def classify_subcategory(text_lower, title):
+    combined = f"{title} {text_lower}"
+    if any(k in combined for k in ["szkolenie", "trening", "kurs", "driving training"]):
+        return "Szkolenie / Trening"
+    if any(k in combined for k in ["tor ", "tor-", "wyścig", "time attack", "słomczyn", "łódź", "oes"]):
+        return "Tor / Wyścig / Time Attack"
+    if any(k in combined for k in ["wyprawa", "szlakiem", "turystyczn", "rodzinn", "weekend", "karpaty", "zamków", "szlak"]):
+        return "Wyprawa Turystyczna / 4x4"
+    if any(k in combined for k in ["przepraw", "trophy", "hard", "zmota", "puchar", "edycja", "runda", "wyzwanie", "armagedon", "rajd", "rally", "offroad", "off-road", "4x4"]):
+        return "Rajd Przeprawowy / Trophy"
+    return "Zlot / Spot / Spotkanie"
+
+
 def synthesize_title(loc, subcat):
     if loc == "Nieznana":
-        if "rajd" in subcat.lower() or "offroad" in subcat.lower():
+        if subcat != "Zlot / Spot / Spotkanie":
             return "Rally offroad 4x4"
         return "Jeep - spotkanie terenowe"
-    if "rajd" in subcat.lower() or "offroad" in subcat.lower():
+    if subcat != "Zlot / Spot / Spotkanie":
         return f"Rally offroad - {loc}"
     return f"Jeep - spotkanie w {loc}"
 
@@ -500,9 +513,8 @@ def fetch_and_parse():
                         else:
                             dist = 0
 
-                    subcat = "Rajd / Offroad" if any(
-                        k in text_lower for k in OFFROAD_KEYWORDS
-                    ) else "Zlot / Spot"
+                    subcat = classify_subcategory(text_lower, title)
+                    is_important = (subcat != "Zlot / Spot / Spotkanie")
 
                     raw_events.append({
                         "title": title,
@@ -510,8 +522,8 @@ def fetch_and_parse():
                         "subCategory": subcat,
                         "location": loc,
                         "distanceKm": dist,
-                        "autoStarred": (subcat == "Rajd / Offroad"),
-                        "starred": (subcat == "Rajd / Offroad"),
+                        "autoStarred": is_important,
+                        "starred": is_important,
                         "date": date_str,
                         "source": link,
                     })
@@ -562,9 +574,9 @@ def fetch_and_parse():
                     coords = get_coords(ev['location'])
                     existing['distanceKm'] = round(haversine(HOME_LAT, HOME_LON, coords[0], coords[1]))
 
-                # Upgrade subCategory if the dup is Rajd
-                if ev['subCategory'] == "Rajd / Offroad":
-                    existing['subCategory'] = "Rajd / Offroad"
+                # Upgrade subCategory if existing is general Zlot and new is specific
+                if existing['subCategory'] == "Zlot / Spot / Spotkanie" and ev['subCategory'] != "Zlot / Spot / Spotkanie":
+                    existing['subCategory'] = ev['subCategory']
                     existing['autoStarred'] = True
                     existing['starred'] = True
                 break
