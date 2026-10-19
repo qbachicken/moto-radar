@@ -1,0 +1,36 @@
+name: Update Automotive Events
+
+on:
+  schedule:
+    - cron: '0 */8 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-events:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Run fetcher
+        run: |
+          python fetcher.py
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name "MotoRadar Bot"
+          git config --global user.email "bot@motoradar.local"
+          git add events.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update automotive events [skip ci]" && git push)
