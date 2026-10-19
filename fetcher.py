@@ -485,10 +485,14 @@ def fetch_and_parse():
                     else:
                         if "jura" in text_lower:
                             loc = "Jura"
+                        elif "poligon" in text_lower:
+                            loc = "Skierniewice"
                         elif "wygryzów" in text_lower or "wygryzow" in text_lower:
                             loc = "Pustynia Siedlecka"
                         elif "pomorski" in text_lower or "głusko" in text_lower or "glusko" in text_lower:
                             loc = "Wał Pomorski"
+                        elif "śląsk" in text_lower or "zagłębi" in text_lower:
+                            loc = "Śląsk"
 
                         if loc != "Nieznana":
                             coords = get_coords(loc)
