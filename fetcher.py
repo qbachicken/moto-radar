@@ -592,6 +592,14 @@ def fetch_and_parse():
 
         clean_events.append(ev)
 
+    # --- Final pass: replace generic listing URLs with targeted Google search links ---
+    for ev in clean_events:
+        link_path = urllib.parse.urlparse(ev['source']).path.rstrip("/")
+        if link_path in {"/nadchodzace", "/kalendarz", "/wszystkie",
+                         "/kalendarz/4x4/wszystkie",
+                         "/kalendarz-imprez-motoryzacyjnych-2026", ""} or "kalendarz4x4.pl" in ev['source']:
+            ev['source'] = f"https://www.google.com/search?q={urllib.parse.quote(ev['title'] + ' ' + ev['location'] + ' 2026')}"
+
     with open("events.json", "w", encoding="utf-8") as f:
         json.dump(clean_events, f, ensure_ascii=False, indent=2)
     print(f"Generated {len(clean_events)} clean, deduplicated events.")
