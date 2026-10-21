@@ -1,7 +1,9 @@
 {
+  "id": "./index.html",
   "name": "MotoRadar Skierniewice",
   "short_name": "MotoRadar",
-  "start_url": "./",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#05070d",
   "theme_color": "#05070d",
@@ -9,12 +11,14 @@
     {
       "src": "./icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "./icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "./icons/icon-maskable-512.png",
