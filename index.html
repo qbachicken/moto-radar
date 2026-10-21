@@ -95,6 +95,28 @@
             margin-top: 8px;
         }
         .btn-ai:hover { background: #7c3aed; }
+        .btn-secondary {
+            background: #1e293b;
+            color: var(--text-main);
+            border: 1px solid #334155;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        .notif-status {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
         .filters {
             display: flex;
             gap: 8px;
@@ -207,6 +229,15 @@
         <button class="btn-ai" onclick="runGroqAIOptimization()" style="margin-top: 12px;">✨ Usprawnij wydarzenia przez Groq AI</button>
 
         <div style="border-top: 1px solid #334155; margin-top: 16px; padding-top: 14px;">
+            <h3 style="margin-bottom: 8px;">🔔 Powiadomienia</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Przypomnienia o wydarzeniach oznaczonych ⭐: raz dziennie, od 3 dni przed startem aż do dnia wydarzenia.</p>
+            <div id="notifStatus" class="notif-status"></div>
+            <button class="btn-primary" id="notifToggleBtn" onclick="toggleNotifications()">🔔 Włącz powiadomienia</button>
+            <button class="btn-secondary" id="notifTestBtn" onclick="sendTestNotification()" style="display:none;">Wyślij powiadomienie testowe</button>
+            <small style="color: var(--text-muted); display: block; margin-top: 8px;">Android (Chrome, zainstalowana aplikacja): przypomnienia sprawdzane są też w tle. iPhone i pozostałe przeglądarki: przy otwarciu aplikacji.</small>
+        </div>
+
+        <div style="border-top: 1px solid #334155; margin-top: 16px; padding-top: 14px;">
             <h3 style="margin-bottom: 8px;">📱 Instalacja aplikacji</h3>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Zainstaluj MotoRadar na telefonie (PWA), aby uruchamiać go jak zwykłą aplikację z ekranu głównego.</p>
             <button class="btn-primary" id="installBtn" style="display:none; background: var(--accent-green);">📲 Zainstaluj aplikację</button>
@@ -231,13 +262,13 @@
     </div>
 
     <div class="filters">
-        <button class="filter-btn active" onclick="setFilter('all', this)">Wszystkie</button>
-        <button class="filter-btn" onclick="setFilter('starred', this)">⭐ Ważne</button>
-        <button class="filter-btn" onclick="setFilter('Rajd Przeprawowy / Trophy', this)">🚜 Rajdy</button>
-        <button class="filter-btn" onclick="setFilter('Wyprawa Turystyczna / 4x4', this)">🧭 Wyprawy</button>
-        <button class="filter-btn" onclick="setFilter('Szkolenie / Trening', this)">🎓 Szkolenia</button>
-        <button class="filter-btn" onclick="setFilter('Tor / Wyścig / Time Attack', this)">🏁 Tory</button>
-        <button class="filter-btn" onclick="setFilter('Zlot / Spot / Spotkanie', this)">🚗 Zloty</button>
+        <button class="filter-btn active" data-filter="all" onclick="setFilter('all', this)">Wszystkie</button>
+        <button class="filter-btn" data-filter="starred" onclick="setFilter('starred', this)">⭐ Ważne</button>
+        <button class="filter-btn" data-filter="Rajd Przeprawowy / Trophy" onclick="setFilter('Rajd Przeprawowy / Trophy', this)">🚜 Rajdy</button>
+        <button class="filter-btn" data-filter="Wyprawa Turystyczna / 4x4" onclick="setFilter('Wyprawa Turystyczna / 4x4', this)">🧭 Wyprawy</button>
+        <button class="filter-btn" data-filter="Szkolenie / Trening" onclick="setFilter('Szkolenie / Trening', this)">🎓 Szkolenia</button>
+        <button class="filter-btn" data-filter="Tor / Wyścig / Time Attack" onclick="setFilter('Tor / Wyścig / Time Attack', this)">🏁 Tory</button>
+        <button class="filter-btn" data-filter="Zlot / Spot / Spotkanie" onclick="setFilter('Zlot / Spot / Spotkanie', this)">🚗 Zloty</button>
     </div>
 
     <div id="eventsList">Ładowanie...</div>
@@ -255,116 +286,289 @@
     </div>
 </div>
 
+<script src="reminders.js"></script>
 <script>
+    // --- Bezpieczny dostęp do localStorage (uszkodzony JSON / tryb prywatny nie wywala aplikacji) ---
+    function readJSON(key, fallback) {
+        try {
+            let raw = localStorage.getItem(key);
+            if (raw === null) return fallback;
+            let val = JSON.parse(raw);
+            return (val === null || val === undefined) ? fallback : val;
+        } catch (e) {
+            return fallback;
+        }
+    }
+
+    function writeJSON(key, value) {
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+            return true;
+        } catch (e) {
+            console.warn('Nie udało się zapisać w localStorage:', key, e);
+            return false;
+        }
+    }
+
+    function readString(key) {
+        try { return localStorage.getItem(key) || ''; } catch (e) { return ''; }
+    }
+
+    const DEFAULT_SETTINGS = { maxDist: 150, filter: 'all', notify: false };
+    const STARRED_KEY = 'motoradar_starred';
+
     let events = [];
-    let settings = JSON.parse(localStorage.getItem('motoradar_settings') || '{"maxDist": 150}');
-    let groqApiKey = localStorage.getItem('motoradar_groq_key') || '';
-    let currentFilter = 'all';
+    let savedSettings = readJSON('motoradar_settings', {});
+    let settings = Object.assign({}, DEFAULT_SETTINGS,
+        (savedSettings && typeof savedSettings === 'object' && !Array.isArray(savedSettings)) ? savedSettings : {});
+    let groqApiKey = readString('motoradar_groq_key');
+    let currentFilter = settings.filter;
     let pendingUrl = '';
 
-    const MONTHS_PL = {
-        "stycznia": 0, "lutego": 1, "marca": 2, "kwietnia": 3, "maja": 4, "czerwca": 5,
-        "lipca": 6, "sierpnia": 7, "września": 8, "października": 9, "listopada": 10, "grudnia": 11
-    };
+    function persistSettings() {
+        writeJSON('motoradar_settings', settings);
+    }
 
+    // Data startu wydarzenia (dla zakresów: pierwszy dzień). Wspólna logika ze service workerem (reminders.js).
     function parseEventDate(dateStr) {
-        if (!dateStr) return null;
-        let s = dateStr.trim().toLowerCase();
-        // Match "24 października" or "23-25 października"
-        let m = s.match(/(\d{1,2})\s+(stycznia|lutego|marca|kwietnia|maja|czerwca|lipca|sierpnia|września|października|listopada|grudnia)/i);
-        if (m) {
-            let day = parseInt(m[1], 10);
-            let month = MONTHS_PL[m[2].toLowerCase()];
-            if (month !== undefined) {
-                let now = new Date();
-                let yr = now.getFullYear();
-                let dt = new Date(yr, month, day);
-                if (dt < new Date(now.getFullYear(), now.getMonth(), now.getDate() - 10) && now.getMonth() === 0) {
-                    dt.setFullYear(yr + 1);
-                }
-                return dt;
-            }
-        }
-        // Match numeric "24.10.2026" or "24/10/26"
-        let m2 = s.match(/(\d{1,2})[./-](\d{1,2})[./-](\d{2,4})/);
-        if (m2) {
-            let day = parseInt(m2[1], 10);
-            let month = parseInt(m2[2], 10) - 1;
-            let yr = m2[3];
-            let year = yr.length === 2 ? 2000 + parseInt(yr, 10) : parseInt(yr, 10);
-            return new Date(year, month, day);
-        }
-        return null;
+        return MotoReminders.parseEventDate(dateStr);
     }
 
-    function checkEventNotifications() {
-        let starredEvents = events.filter(e => e.starred || e.autoStarred);
-        if (starredEvents.length === 0) return;
+    function isStarred(ev) {
+        return !!(ev.starred || ev.autoStarred);
+    }
 
-        let now = new Date();
-        let todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        let timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    // --- Zapisywanie obserwowanych (⭐) wydarzeń ---------------------------------------------
+    // Zapisujemy całe migawki, więc ulubione przeżywają odświeżenie strony, a także aktualizację events.json.
 
-        let notifiedKey = 'motoradar_notified_' + todayMidnight.toDateString();
-        let notifiedSet = JSON.parse(localStorage.getItem(notifiedKey) || '[]');
+    function eventKey(ev) {
+        return normalizeTitle(ev.title) + '|' + (ev.date || '').trim().toLowerCase();
+    }
 
-        starredEvents.forEach((ev, idx) => {
-            let dt = parseEventDate(ev.date);
-            if (!dt) return;
-            let evMidnight = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
-            let diffDays = Math.round((evMidnight - todayMidnight) / (1000 * 60 * 60 * 24));
+    function snapshotEvent(ev) {
+        return {
+            title: ev.title,
+            fullDescription: ev.fullDescription,
+            subCategory: ev.subCategory,
+            location: ev.location,
+            locationType: ev.locationType,
+            distanceKm: ev.distanceKm,
+            date: ev.date,
+            source: ev.source,
+            custom: !!ev.custom,
+            startISO: MotoReminders.toISODate(parseEventDate(ev.date))
+        };
+    }
 
-            // diffDays: -3 (3 dni temu), -2 (2 dni temu), -1 (wczoraj), 0 (dzisiaj)
-            if (diffDays >= -3 && diffDays <= 0) {
-                let uniqueId = ev.title + '_' + ev.date;
-                if (!notifiedSet.includes(uniqueId)) {
-                    notifiedSet.push(uniqueId);
-                    localStorage.setItem(notifiedKey, JSON.stringify(notifiedSet));
+    // To samo wydarzenie mimo drobnych zmian tytułu lub daty między kolejnymi aktualizacjami źródeł.
+    function sameEvent(a, b) {
+        let ta = normalizeTitle(a.title), tb = normalizeTitle(b.title);
+        if (!ta || !tb) return false;
+        let titleMatch = ta === tb || (Math.min(ta.length, tb.length) >= 6 && (ta.includes(tb) || tb.includes(ta)));
+        if (!titleMatch) return false;
+        let da = parseEventDate(a.date), db = parseEventDate(b.date);
+        if (da && db) return Math.abs(da - db) <= 2 * 86400000;
+        return (a.date || '').trim().toLowerCase() === (b.date || '').trim().toLowerCase();
+    }
 
-                    let whenText = "";
-                    if (diffDays === 0) whenText = `DZISIAJ o godzinie ${timeStr}!`;
-                    else if (diffDays === -1) whenText = `Wczoraj (${ev.date}) o godzinie ${timeStr}`;
-                    else if (diffDays === -2) whenText = `Przedwczoraj (${ev.date}) o godzinie ${timeStr}`;
-                    else whenText = `3 dni temu (${ev.date}) o godzinie ${timeStr}`;
+    function applySavedStars(list) {
+        let store = readJSON(STARRED_KEY, {});
+        if (!store || typeof store !== 'object' || Array.isArray(store)) store = {};
 
-                    triggerBrowserNotification(`🔔 Przypomnienie o obserwowanym wydarzeniu!`, `${ev.title} (${ev.location || 'Okolica'}) miało miejsce/odbywa się: ${whenText}`);
-                }
-            }
+        // Wydarzenia, które już się rozpoczęły, znikają z zapisanych.
+        Object.keys(store).forEach(k => {
+            let snap = store[k];
+            let days = (snap && snap.startISO) ? MotoReminders.daysUntil(snap.startISO) : null;
+            if (!snap || (days !== null && days < 0)) delete store[k];
         });
+
+        let used = new Set();
+        list.forEach(ev => {
+            let k = eventKey(ev);
+            let matchKey = (store[k] && !used.has(k)) ? k
+                : Object.keys(store).find(sk => !used.has(sk) && sameEvent(store[sk], ev));
+            if (!matchKey) return;
+            delete store[matchKey];
+            store[k] = snapshotEvent(ev);   // odświeżamy migawkę świeżymi danymi ze źródła
+            used.add(k);
+            ev.starred = true;
+            ev._starKey = k;
+        });
+
+        // Zapisane wydarzenia, których już nie ma w źródłach, nadal pokazujemy (do startu).
+        Object.keys(store).forEach(k => {
+            if (used.has(k) || store[k].custom) return;   // własne wydarzenia wczytują się z motoradar_custom
+            list.push(Object.assign({}, store[k], { starred: true, autoStarred: false, fromSaved: true, _starKey: k }));
+        });
+
+        writeJSON(STARRED_KEY, store);
+        return list;
     }
 
-    function triggerBrowserNotification(title, body) {
-        if ("Notification" in window) {
-            if (Notification.permission === "granted") {
-                new Notification(title, { body: body, icon: 'https://cdn-icons-png.flaticon.com/512/3774/3774278.png' });
-            } else if (Notification.permission !== "denied") {
-                Notification.requestPermission().then(permission => {
-                    if (permission === "granted") {
-                        new Notification(title, { body: body, icon: 'https://cdn-icons-png.flaticon.com/512/3774/3774278.png' });
-                    }
-                });
+    function updateStarStore(ev) {
+        let store = readJSON(STARRED_KEY, {});
+        if (!store || typeof store !== 'object' || Array.isArray(store)) store = {};
+        if (ev.starred) {
+            let k = eventKey(ev);
+            store[k] = snapshotEvent(ev);
+            ev._starKey = k;
+        } else {
+            delete store[ev._starKey || eventKey(ev)];
+            delete ev._starKey;
+        }
+        writeJSON(STARRED_KEY, store);
+    }
+
+    // --- Powiadomienia -------------------------------------------------------------------------
+
+    // Lista obserwowanych wydarzeń trafia do IndexedDB, bo service worker nie ma dostępu do localStorage.
+    function syncWatchlist() {
+        let watchlist = events.filter(isStarred).map(e => ({
+            key: eventKey(e),
+            title: e.title,
+            date: e.date,
+            location: e.location,
+            startISO: MotoReminders.toISODate(parseEventDate(e.date))
+        }));
+        return Promise.all([
+            MotoReminders.store.set('watchlist', watchlist),
+            MotoReminders.store.set('notifyEnabled', !!settings.notify)
+        ]).catch(err => console.warn('IndexedDB niedostępne:', err));
+    }
+
+    function getSwRegistration() {
+        if (!('serviceWorker' in navigator)) return Promise.resolve(null);
+        return Promise.race([
+            navigator.serviceWorker.ready,
+            new Promise(resolve => setTimeout(() => resolve(null), 4000))
+        ]).catch(() => null);
+    }
+
+    async function showNotificationNow(title, options) {
+        // Na telefonach powiadomienia pokazuje wyłącznie service worker (new Notification() tam nie działa).
+        let reg = await getSwRegistration();
+        if (reg) return reg.showNotification(title, options);
+        return new Notification(title, options);
+    }
+
+    async function runReminderCheck() {
+        if (!settings.notify || !('Notification' in window)) return;
+        try {
+            await MotoReminders.check(showNotificationNow);
+        } catch (e) {
+            console.warn('Sprawdzanie przypomnień nie powiodło się:', e);
+        }
+    }
+
+    async function setupPeriodicSync(enable) {
+        try {
+            let reg = await getSwRegistration();
+            if (!reg || !('periodicSync' in reg)) return;
+            if (!enable) {
+                await reg.periodicSync.unregister('motoradar-reminders');
+                return;
             }
+            let status = await navigator.permissions.query({ name: 'periodic-background-sync' });
+            if (status.state === 'granted') {
+                await reg.periodicSync.register('motoradar-reminders', { minInterval: 12 * 60 * 60 * 1000 });
+            }
+        } catch (e) {
+            console.log('Periodic Background Sync niedostępny:', e);
+        }
+    }
+
+    function updateNotifUI() {
+        let status = document.getElementById('notifStatus');
+        let btn = document.getElementById('notifToggleBtn');
+        let testBtn = document.getElementById('notifTestBtn');
+        if (!status || !btn || !testBtn) return;
+
+        if (!('Notification' in window)) {
+            status.textContent = '⚠️ Ta przeglądarka nie obsługuje powiadomień.';
+            btn.style.display = 'none';
+            testBtn.style.display = 'none';
+            return;
+        }
+        if (Notification.permission === 'denied') {
+            status.textContent = '🚫 Powiadomienia są zablokowane dla tej strony. Odblokuj je w ustawieniach przeglądarki lub telefonu i wróć tutaj.';
+            btn.style.display = 'none';
+            testBtn.style.display = 'none';
+            return;
+        }
+        btn.style.display = 'block';
+        if (settings.notify && Notification.permission === 'granted') {
+            status.textContent = '✅ Włączone. Dostaniesz przypomnienia o wydarzeniach z ⭐.';
+            btn.textContent = '🔕 Wyłącz powiadomienia';
+            testBtn.style.display = 'block';
+        } else {
+            status.textContent = '🔕 Wyłączone.';
+            btn.textContent = '🔔 Włącz powiadomienia';
+            testBtn.style.display = 'none';
+        }
+    }
+
+    async function toggleNotifications() {
+        if (!('Notification' in window)) return;
+        if (settings.notify) {
+            settings.notify = false;
+            persistSettings();
+            await syncWatchlist();
+            setupPeriodicSync(false);
+            updateNotifUI();
+            return;
+        }
+        let permission = Notification.permission;
+        if (permission === 'default') {
+            permission = await Notification.requestPermission();   // musi wynikać z kliknięcia użytkownika
+        }
+        if (permission === 'granted') {
+            settings.notify = true;
+            persistSettings();
+            await syncWatchlist();
+            setupPeriodicSync(true);
+            runReminderCheck();
+        }
+        updateNotifUI();
+    }
+
+    async function sendTestNotification() {
+        try {
+            await showNotificationNow('🏍️ MotoRadar', { body: 'Powiadomienia działają ✅', tag: 'motoradar-test' });
+        } catch (e) {
+            alert('Nie udało się wyświetlić powiadomienia: ' + e.message);
         }
     }
 
     document.getElementById('maxDist').value = settings.maxDist;
     document.getElementById('groqKeyInput').value = groqApiKey;
 
+    // Przywracamy zapisany filtr (jeśli nie istnieje, wracamy do "Wszystkie").
+    (function restoreFilter() {
+        let buttons = Array.from(document.querySelectorAll('.filter-btn'));
+        if (!buttons.some(b => b.dataset.filter === currentFilter)) currentFilter = 'all';
+        buttons.forEach(b => b.classList.toggle('active', b.dataset.filter === currentFilter));
+    })();
+
     function toggleSettings() {
         let p = document.getElementById('settingsPanel');
         p.style.display = p.style.display === 'none' ? 'block' : 'none';
+        if (p.style.display === 'block') updateNotifUI();
     }
 
     function saveSettings() {
         settings.maxDist = parseInt(document.getElementById('maxDist').value) || 150;
-        localStorage.setItem('motoradar_settings', JSON.stringify(settings));
+        persistSettings();
         renderEvents();
     }
 
     function saveGroqKey() {
         groqApiKey = document.getElementById('groqKeyInput').value.trim();
-        localStorage.setItem('motoradar_groq_key', groqApiKey);
-        alert('Klucz Groq API został zapisany lokalnie!');
+        try {
+            localStorage.setItem('motoradar_groq_key', groqApiKey);
+            alert('Klucz Groq API został zapisany lokalnie!');
+        } catch (e) {
+            alert('Nie udało się zapisać klucza (pamięć przeglądarki jest niedostępna).');
+        }
     }
 
     function normalizeTitle(title) {
@@ -375,8 +579,9 @@
         try {
             let res = await fetch('events.json?_=' + Date.now());
             let data = await res.json();
-            let localCustom = JSON.parse(localStorage.getItem('motoradar_custom') || '[]');
-            localStorage.removeItem('motoradar_ai_optimized');
+            let localCustom = readJSON('motoradar_custom', []);
+            if (!Array.isArray(localCustom)) localCustom = [];
+            try { localStorage.removeItem('motoradar_ai_optimized'); } catch (e) {}
 
             let combined = [...localCustom, ...data];
             let approxRegions = ["Jura", "Wał Pomorski", "Śląsk", "Zagłębie", "Jurajskie", "Gorce", "Spisz", "Kotlina Jeleniogórska", "Sudeckie", "Pomorski", "Lubuski", "Świętokrzyskie", "Pustynia Siedlecka", "Pustynia Błędowska"];
@@ -419,9 +624,10 @@
                     }
                 }
             }
-            events = uniqueEvents;
+            events = applySavedStars(uniqueEvents);
             renderEvents();
-            checkEventNotifications();
+            await syncWatchlist();
+            runReminderCheck();
         } catch (e) {
             document.getElementById('eventsList').innerHTML = '<div class="empty-state">Błąd pobierania danych.</div>';
         }
@@ -431,22 +637,38 @@
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentFilter = filter;
+        settings.filter = filter;
+        persistSettings();
         renderEvents();
     }
 
     function toggleStar(event, index) {
         event.stopPropagation();
-        events[index].starred = !events[index].starred;
-        if (events[index].starred) {
+        let ev = events[index];
+        ev.starred = !ev.starred;
+        if (ev.starred) {
             playAlertSound();
+        }
+        updateStarStore(ev);
+        // Wydarzenie przywrócone z zapisu, którego już nie ma w źródłach, znika z listy po odznaczeniu.
+        if (!ev.starred && ev.fromSaved && !ev.autoStarred) {
+            events.splice(index, 1);
         }
         saveCurrentEventsState();
         renderEvents();
+        // Jeśli wydarzenie jest już w oknie przypomnień (3 dni przed startem), powiadomienie pojawi się od razu.
+        syncWatchlist().then(runReminderCheck);
     }
 
     function saveCurrentEventsState() {
-        localStorage.setItem('motoradar_custom', JSON.stringify(events.filter(e => e.custom)));
-        localStorage.setItem('motoradar_ai_optimized', JSON.stringify(events));
+        let custom = events.filter(e => e.custom).map(e => {
+            let copy = Object.assign({}, e);
+            delete copy._starKey;
+            delete copy.fromSaved;
+            return copy;
+        });
+        writeJSON('motoradar_custom', custom);
+        writeJSON('motoradar_ai_optimized', events);
     }
 
     function playAlertSound() {
@@ -640,7 +862,8 @@ Oto dane wejściowe:
         let title = lines[0] || "Wydarzenie z własnego wpisu";
         let isOffroad = /rajd|offroad|4x4|teren|cross/i.test(text);
 
-        let custom = JSON.parse(localStorage.getItem('motoradar_custom') || '[]');
+        let custom = readJSON('motoradar_custom', []);
+        if (!Array.isArray(custom)) custom = [];
         let normTitle = normalizeTitle(title);
         let exists = custom.some(e => normalizeTitle(e.title) === normTitle) || events.some(e => normalizeTitle(e.title) === normTitle);
         if (exists) {
@@ -658,12 +881,12 @@ Oto dane wejściowe:
             distanceKm: 0,
             autoStarred: false,
             starred: false,
-            date: "Najbliższy termin",
+            date: MotoReminders.findDateInText(text) || "Najbliższy termin",
             custom: true,
             source: "https://facebook.com"
         };
         custom.push(newEv);
-        localStorage.setItem('motoradar_custom', JSON.stringify(custom));
+        writeJSON('motoradar_custom', custom);
         document.getElementById('fbPaste').value = '';
         loadEvents();
         alert('Dodano wydarzenie pomyślnie!');
@@ -676,7 +899,8 @@ Oto dane wejściowe:
         let title = lines[0] || "Wydarzenie z własnego wpisu";
         let isOffroad = /rajd|offroad|4x4|teren|cross/i.test(text);
 
-        let custom = JSON.parse(localStorage.getItem('motoradar_custom') || '[]');
+        let custom = readJSON('motoradar_custom', []);
+        if (!Array.isArray(custom)) custom = [];
         let normTitle = normalizeTitle(title);
         let exists = custom.some(e => normalizeTitle(e.title) === normTitle) || events.some(e => normalizeTitle(e.title) === normTitle);
         if (exists) {
@@ -694,12 +918,12 @@ Oto dane wejściowe:
             distanceKm: 0,
             autoStarred: false,
             starred: false,
-            date: "Najbliższy termin",
+            date: MotoReminders.findDateInText(text) || "Najbliższy termin",
             custom: true,
             source: "https://facebook.com"
         };
         custom.push(newEv);
-        localStorage.setItem('motoradar_custom', JSON.stringify(custom));
+        writeJSON('motoradar_custom', custom);
         document.getElementById('settingsFbPaste').value = '';
         loadEvents();
         alert('Dodano wydarzenie pomyślnie!');
@@ -730,10 +954,20 @@ Oto dane wejściowe:
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('ServiceWorker registered successfully:', reg.scope))
+                .then(reg => {
+                    console.log('ServiceWorker registered successfully:', reg.scope);
+                    if (settings.notify) setupPeriodicSync(true);
+                })
                 .catch(err => console.log('ServiceWorker registration failed:', err));
         });
     }
+
+    // Przy otwartej aplikacji sprawdzamy przypomnienia też po powrocie do niej i co 30 minut.
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') runReminderCheck();
+    });
+    setInterval(runReminderCheck, 30 * 60 * 1000);
+    updateNotifUI();
 </script>
 </body>
 </html>

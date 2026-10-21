@@ -1,7 +1,10 @@
-const CACHE_NAME = 'motoradar-v1';
+importScripts('./reminders.js');
+
+const CACHE_NAME = 'motoradar-v2';
 const ASSETS = [
   './',
   './index.html',
+  './reminders.js',
   './manifest.json',
   './events.json'
 ];
@@ -21,12 +24,14 @@ self.addEventListener('activate', (e) => {
       return Promise.all(
         keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
       );
-    })
+    }).then(() => self.clients.claim())
   );
-  self.claim();
 });
 
 self.addEventListener('fetch', (e) => {
+  // Cache obsługuje tylko GET (np. zapytania POST do Groq idą prosto do sieci).
+  if (e.request.method !== 'GET') return;
+
   e.respondWith(
     caches.match(e.request).then((cachedResponse) => {
       if (cachedResponse) {
@@ -48,6 +53,34 @@ self.addEventListener('fetch', (e) => {
       }).catch(() => {
         // Fallback for offline if needed
       });
+    })
+  );
+});
+
+// --- Przypomnienia o obserwowanych wydarzeniach -------------------------------------------
+
+function runReminderCheck() {
+  return self.MotoReminders.check((title, options) =>
+    self.registration.showNotification(title, options)
+  ).catch((err) => console.log('Reminder check failed:', err));
+}
+
+// Android (Chrome, zainstalowana aplikacja): przeglądarka budzi service worker okresowo, także przy zamkniętej aplikacji.
+self.addEventListener('periodicsync', (e) => {
+  if (e.tag === 'motoradar-reminders') {
+    e.waitUntil(runReminderCheck());
+  }
+});
+
+self.addEventListener('notificationclick', (e) => {
+  e.notification.close();
+  const target = (e.notification.data && e.notification.data.url) || './index.html';
+  e.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if ('focus' in client) return client.focus();
+      }
+      return self.clients.openWindow(target);
     })
   );
 });
