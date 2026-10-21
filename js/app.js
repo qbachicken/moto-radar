@@ -12,6 +12,7 @@ import {
   isStarred,
   escapeHtml
 } from './logic.js';
+import { store, toISODate, parseEventDate } from '../reminders.js';
 
 let state = {
   events: [],
@@ -156,17 +157,106 @@ function checkEventNotifications() {
   });
 }
 
-function triggerBrowserNotification(title, body) {
-  if ("Notification" in window) {
-    if (Notification.permission === "granted") {
-      new Notification(title, { body: body, icon: 'icons/icon-192.png' });
-    } else if (Notification.permission !== "denied") {
-      Notification.requestPermission().then(permission => {
-        if (permission === "granted") {
-          new Notification(title, { body: body, icon: 'icons/icon-192.png' });
-        }
-      });
+async function updateNotifUI() {
+  let statusEl = document.getElementById('notifStatus');
+  let toggleBtn = document.getElementById('notifToggleBtn');
+  let testBtn = document.getElementById('notifTestBtn');
+  if (!statusEl || !toggleBtn) return;
+
+  let enabled = false;
+  try {
+    enabled = await store.get('notifyEnabled');
+  } catch (e) {}
+  if (enabled === null) enabled = false;
+
+  let perm = "Notification" in window ? Notification.permission : "unsupported";
+
+  if (perm === "denied") {
+    statusEl.innerHTML = `⚠️ Powiadomienia zablokowane w przeglądarce. Odblokuj w ustawieniach strony.`;
+    toggleBtn.style.display = 'none';
+    if (testBtn) testBtn.style.display = 'none';
+    return;
+  }
+
+  if (enabled && perm === "granted") {
+    statusEl.innerHTML = `✅ Powiadomienia w tle są <b>włączone</b>.`;
+    toggleBtn.innerText = '🔕 Wyłącz powiadomienia';
+    toggleBtn.style.background = 'rgba(255, 0, 85, 0.2)';
+    toggleBtn.style.borderColor = 'var(--crimson)';
+    toggleBtn.style.color = 'var(--crimson)';
+    if (testBtn) testBtn.style.display = 'block';
+  } else {
+    statusEl.innerHTML = `ℹ️ Powiadomienia są <b>wyłączone</b>.`;
+    toggleBtn.innerText = '🔔 Włącz powiadomienia';
+    toggleBtn.style.background = '';
+    toggleBtn.style.borderColor = '';
+    toggleBtn.style.color = '';
+    if (testBtn) testBtn.style.display = 'none';
+  }
+}
+
+async function toggleNotifications() {
+  let perm = "Notification" in window ? await Notification.requestPermission() : "denied";
+  if (perm !== "granted") {
+    toast('Brak zgody na powiadomienia w przeglądarce.');
+    updateNotifUI();
+    return;
+  }
+
+  let enabled = false;
+  try {
+    enabled = await store.get('notifyEnabled');
+  } catch (e) {}
+  let nextState = !enabled;
+
+  try {
+    await store.set('notifyEnabled', nextState);
+    if (nextState) {
+      let watchlist = state.events
+        .filter(e => isStarred(e, starredSet) || e.autoStarred)
+        .map(e => ({
+          key: starKey(e),
+          title: e.title,
+          date: e.date,
+          location: e.location,
+          startISO: toISODate(parseEventDate(e.date)),
+          url: e.source
+        }));
+      await store.set('watchlist', watchlist);
+
+      if ('serviceWorker' in navigator && 'periodicSync' in window.navigator) {
+        try {
+          let reg = await navigator.serviceWorker.ready;
+          await reg.periodicSync.register('motoradar-reminders', {
+            minInterval: 24 * 60 * 60 * 1000
+          });
+        } catch (e) {}
+      }
     }
+  } catch (e) {}
+
+  toast(nextState ? 'Włączono powiadomienia!' : 'Wyłączono powiadomienia.');
+  updateNotifUI();
+}
+
+function sendTestNotification() {
+  if ("Notification" in window && Notification.permission === "granted") {
+    navigator.serviceWorker.ready.then(reg => {
+      reg.showNotification("🏍️ MotoRadar - Test powiadomienia", {
+        body: "Powiadomienia działają poprawnie! Będziesz powiadamiany o startujących zlotach i rajdach.",
+        icon: 'icons/icon-192.png',
+        badge: 'icons/icon-192.png',
+        data: { url: './index.html' }
+      });
+    }).catch(() => {
+      new Notification("🏍️ MotoRadar - Test powiadomienia", {
+        body: "Powiadomienia działają poprawnie!",
+        icon: 'icons/icon-192.png'
+      });
+    });
+    toast('Wysłano powiadomienie testowe!');
+  } else {
+    toast('Najpierw włącz powiadomienia i wyraź zgodę!');
   }
 }
 
@@ -191,6 +281,19 @@ async function loadEvents() {
     state.events = normalized;
     render();
     checkEventNotifications();
+    try {
+      let watchlist = state.events
+        .filter(e => isStarred(e, starredSet) || e.autoStarred)
+        .map(e => ({
+          key: starKey(e),
+          title: e.title,
+          date: e.date,
+          location: e.location,
+          startISO: toISODate(parseEventDate(e.date)),
+          url: e.source
+        }));
+      store.set('watchlist', watchlist).catch(() => {});
+    } catch (e) {}
   } catch (e) {
     let list = document.getElementById('eventsList');
     if (list) {
@@ -246,7 +349,17 @@ if (typeof document !== 'undefined') {
       };
     }
 
-    if (btnSettings) btnSettings.onclick = () => openSheet('sheetSettings');
+    let notifToggleBtn = document.getElementById('notifToggleBtn');
+    let notifTestBtn = document.getElementById('notifTestBtn');
+    if (notifToggleBtn) notifToggleBtn.onclick = toggleNotifications;
+    if (notifTestBtn) notifTestBtn.onclick = sendTestNotification;
+
+    if (btnSettings) {
+      btnSettings.onclick = () => {
+        openSheet('sheetSettings');
+        updateNotifUI();
+      };
+    }
     if (fabAdd) fabAdd.onclick = () => openSheet('sheetAdd');
 
     document.querySelectorAll('[data-close-sheet]').forEach(btn => {
@@ -303,6 +416,19 @@ if (typeof document !== 'undefined') {
           e.stopPropagation();
           starredSet = toggleStar(starredSet, sKey);
           localStorage.setItem('motoradar_starred', JSON.stringify([...starredSet]));
+          try {
+            let watchlist = state.events
+              .filter(e => isStarred(e, starredSet) || e.autoStarred)
+              .map(e => ({
+                key: starKey(e),
+                title: e.title,
+                date: e.date,
+                location: e.location,
+                startISO: toISODate(parseEventDate(e.date)),
+                url: e.source
+              }));
+            store.set('watchlist', watchlist).catch(() => {});
+          } catch (e) {}
           if (starredSet.has(sKey)) {
             playAlertSound();
             navigator.vibrate?.(10);

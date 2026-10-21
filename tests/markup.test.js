@@ -8,7 +8,7 @@ const css = readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
 
 const IDS = ['appHeader','statCount','btnSettings','Input','filterChips','eventsList',
   'emptyState','fabAdd','sheetSettings','sheetAdd','toastHost','distSlider','distValue',
-  'groqKeyInput','aiBtn','installBtn','addForm','addInput'];
+  'groqKeyInput','aiBtn','notifStatus','notifToggleBtn','notifTestBtn','installBtn','addForm','addInput'];
 
 test('every required id appears exactly once', () => {
   for (const id of IDS) {
