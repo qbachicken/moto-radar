@@ -116,6 +116,7 @@
             padding: 10px;
             margin-bottom: 10px;
             line-height: 1.5;
+            white-space: pre-line;
         }
         .filters {
             display: flex;
@@ -448,7 +449,11 @@
         // Na telefonach powiadomienia pokazuje wyłącznie service worker (new Notification() tam nie działa).
         let reg = await getSwRegistration();
         if (reg) return reg.showNotification(title, options);
-        return new Notification(title, options);
+        try {
+            return new Notification(title, options);
+        } catch (e) {
+            throw new Error('Service worker nie jest jeszcze aktywny. Zamknij aplikację i otwórz ją ponownie.');
+        }
     }
 
     async function runReminderCheck() {
@@ -477,6 +482,23 @@
         }
     }
 
+    let notifError = '';
+
+    function notifSummary() {
+        let upcoming = events.filter(isStarred).map(e => ({
+            e: e,
+            days: MotoReminders.daysUntil(MotoReminders.toISODate(parseEventDate(e.date)))
+        })).filter(x => x.days !== null && x.days >= 0).sort((x, y) => x.days - y.days);
+        if (upcoming.length === 0) {
+            return 'Nie obserwujesz jeszcze żadnego nadchodzącego wydarzenia. Oznacz ⭐ wydarzenie, a przypomnienia ruszą 3 dni przed startem.';
+        }
+        let n = upcoming[0];
+        let when = n.days <= MotoReminders.REMIND_DAYS_BEFORE
+            ? 'przypomnienia już trwają'
+            : 'przypomnienia ruszą za ' + (n.days - MotoReminders.REMIND_DAYS_BEFORE) + ' dni';
+        return 'Obserwowane wydarzenia: ' + upcoming.length + '. Najbliższe: ' + n.e.title + ' (' + n.e.date + ') - ' + when + '.';
+    }
+
     function updateNotifUI() {
         let status = document.getElementById('notifStatus');
         let btn = document.getElementById('notifToggleBtn');
@@ -497,46 +519,65 @@
         }
         btn.style.display = 'block';
         if (settings.notify && Notification.permission === 'granted') {
-            status.textContent = '✅ Włączone. Dostaniesz przypomnienia o wydarzeniach z ⭐.';
+            status.textContent = '✅ Włączone. ' + notifSummary();
             btn.textContent = '🔕 Wyłącz powiadomienia';
             testBtn.style.display = 'block';
         } else {
-            status.textContent = '🔕 Wyłączone.';
+            status.textContent = Notification.permission === 'granted'
+                ? '🔕 Wyłączone (zgoda w przeglądarce jest, kliknij poniżej, aby włączyć).'
+                : '🔕 Wyłączone.';
             btn.textContent = '🔔 Włącz powiadomienia';
             testBtn.style.display = 'none';
         }
+        if (notifError) status.textContent += '\n⚠️ ' + notifError;
     }
 
     async function toggleNotifications() {
-        if (!('Notification' in window)) return;
-        if (settings.notify) {
-            settings.notify = false;
-            persistSettings();
-            await syncWatchlist();
-            setupPeriodicSync(false);
-            updateNotifUI();
-            return;
-        }
-        let permission = Notification.permission;
-        if (permission === 'default') {
-            permission = await Notification.requestPermission();   // musi wynikać z kliknięcia użytkownika
-        }
-        if (permission === 'granted') {
+        notifError = '';
+        if (!('Notification' in window)) { updateNotifUI(); return; }
+        try {
+            if (settings.notify) {
+                settings.notify = false;
+                persistSettings();
+                await syncWatchlist();
+                setupPeriodicSync(false);
+                updateNotifUI();
+                return;
+            }
+            let permission = Notification.permission;
+            if (permission === 'default') {
+                permission = await Notification.requestPermission();   // musi wynikać z kliknięcia użytkownika
+            }
+            if (permission !== 'granted') {
+                updateNotifUI();
+                return;
+            }
             settings.notify = true;
             persistSettings();
             await syncWatchlist();
             setupPeriodicSync(true);
-            runReminderCheck();
+            updateNotifUI();
+            // Natychmiastowe potwierdzenie, że powiadomienia faktycznie docierają na to urządzenie.
+            await showNotificationNow('🏍️ MotoRadar: powiadomienia włączone', {
+                body: 'Przypomnienia o wydarzeniach z ⭐ będą przychodzić od 3 dni przed startem.',
+                tag: 'motoradar-enabled'
+            });
+            await runReminderCheck();
+        } catch (e) {
+            console.warn('Włączanie powiadomień nie powiodło się:', e);
+            notifError = 'Nie udało się pokazać powiadomienia: ' + (e && e.message ? e.message : e);
         }
         updateNotifUI();
     }
 
     async function sendTestNotification() {
+        notifError = '';
         try {
             await showNotificationNow('🏍️ MotoRadar', { body: 'Powiadomienia działają ✅', tag: 'motoradar-test' });
         } catch (e) {
-            alert('Nie udało się wyświetlić powiadomienia: ' + e.message);
+            notifError = 'Nie udało się pokazać powiadomienia: ' + (e && e.message ? e.message : e);
         }
+        updateNotifUI();
     }
 
     document.getElementById('maxDist').value = settings.maxDist;
@@ -627,6 +668,7 @@
             events = applySavedStars(uniqueEvents);
             renderEvents();
             await syncWatchlist();
+            updateNotifUI();
             runReminderCheck();
         } catch (e) {
             document.getElementById('eventsList').innerHTML = '<div class="empty-state">Błąd pobierania danych.</div>';
@@ -657,7 +699,7 @@
         saveCurrentEventsState();
         renderEvents();
         // Jeśli wydarzenie jest już w oknie przypomnień (3 dni przed startem), powiadomienie pojawi się od razu.
-        syncWatchlist().then(runReminderCheck);
+        syncWatchlist().then(() => { updateNotifUI(); return runReminderCheck(); });
     }
 
     function saveCurrentEventsState() {
