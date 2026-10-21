@@ -1,11 +1,13 @@
 importScripts('./reminders.js');
 
-const CACHE_NAME = 'motoradar-v2';
+const CACHE_NAME = 'motoradar-v3';
 const ASSETS = [
   './',
   './index.html',
   './reminders.js',
   './manifest.json',
+  './icon-192.png',
+  './icon-512.png',
   './events.json'
 ];
 
