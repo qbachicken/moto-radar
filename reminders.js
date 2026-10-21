@@ -143,8 +143,8 @@ function withStore(mode, fn) {
 }
 
 export const store = {
-    get: function (key) { return withStore('readonly', function (s) { return s.get(key); }); },
-    set: function (key, value) { return withStore('readwrite', function (s) { return s.put(value, key); }); },
+    get: function (key) { return withStore('readonly', function (s) { return s.get(key); }).catch(function () { return null; }); },
+    set: function (key, value) { return withStore('readwrite', function (s) { return s.put(value, key); }).catch(function () {}); },
     update: function (key, fn) {
         return openDb().then(function (db) {
             return new Promise(function (resolve, reject) {
@@ -161,7 +161,7 @@ export const store = {
                 tx.onerror = function () { db.close(); reject(tx.error); };
                 tx.onabort = function () { db.close(); reject(tx.error); };
             });
-        });
+        }).catch(function () { return null; });
     }
 };
 

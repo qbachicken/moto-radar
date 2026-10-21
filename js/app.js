@@ -14,11 +14,31 @@ import {
 } from './logic.js';
 import { store, toISODate, parseEventDate } from '../reminders.js';
 
+function safeGet(key) {
+  try {
+    return typeof localStorage !== 'undefined' ? localStorage.getItem(key) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function safeSet(key, val) {
+  try {
+    if (typeof localStorage !== 'undefined') localStorage.setItem(key, val);
+  } catch (e) {}
+}
+
+function safeRemove(key) {
+  try {
+    if (typeof localStorage !== 'undefined') localStorage.removeItem(key);
+  } catch (e) {}
+}
+
 let state = {
   events: [],
-  starred: loadJson(typeof localStorage !== 'undefined' ? localStorage.getItem('motoradar_starred') : null, []),
-  settings: loadJson(typeof localStorage !== 'undefined' ? localStorage.getItem('motoradar_settings') : null, { maxDist: 150 }),
-  groqKey: (typeof localStorage !== 'undefined' ? localStorage.getItem('motoradar_groq_key') : '') || '',
+  starred: loadJson(safeGet('motoradar_starred'), []),
+  settings: loadJson(safeGet('motoradar_settings'), { maxDist: 150 }),
+  groqKey: safeGet('motoradar_groq_key') || '',
   query: '',
   category: 'all',
   openKeys: new Set()
@@ -135,7 +155,7 @@ function checkEventNotifications() {
   let timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   let notifiedKey = 'motoradar_notified_' + todayMidnight.toDateString();
-  let notifiedSet = loadJson(localStorage.getItem(notifiedKey), []);
+  let notifiedSet = loadJson(safeGet(notifiedKey), []);
 
   starredEvents.forEach(ev => {
     let dt = formatDateLabel(ev.date).days;
@@ -143,7 +163,7 @@ function checkEventNotifications() {
       let uniqueId = starKey(ev);
       if (!notifiedSet.includes(uniqueId)) {
         notifiedSet.push(uniqueId);
-        localStorage.setItem(notifiedKey, JSON.stringify(notifiedSet));
+        safeSet(notifiedKey, JSON.stringify(notifiedSet));
 
         let whenText = "";
         if (dt === 0) whenText = `DZISIAJ o godzinie ${timeStr}!`;
@@ -262,20 +282,20 @@ function sendTestNotification() {
 
 async function loadEvents() {
   try {
-    let res = await fetch('events.json?_=' + Date.now());
+    let res = await fetch('./events.json?_=' + Date.now());
     let data = await res.json();
-    let localCustom = loadJson(localStorage.getItem('motoradar_custom'), []);
-    localStorage.removeItem('motoradar_ai_optimized');
+    let localCustom = loadJson(safeGet('motoradar_custom'), []);
+    safeRemove('motoradar_ai_optimized');
 
     let combined = [...localCustom, ...data];
     let normalized = normalizeEvents(combined);
 
-    let alreadySeeded = localStorage.getItem('motoradar_starred_seeded') === 'true';
+    let alreadySeeded = safeGet('motoradar_starred_seeded') === 'true';
     if (!alreadySeeded) {
       let seededSet = starSetFromEvents(normalized, false);
       for (let k of seededSet) starredSet.add(k);
-      localStorage.setItem('motoradar_starred', JSON.stringify([...starredSet]));
-      localStorage.setItem('motoradar_starred_seeded', 'true');
+      safeSet('motoradar_starred', JSON.stringify([...starredSet]));
+      safeSet('motoradar_starred_seeded', 'true');
     }
 
     state.events = normalized;
@@ -335,7 +355,7 @@ if (typeof document !== 'undefined') {
       };
       distSlider.onchange = (e) => {
         state.settings.maxDist = parseInt(e.target.value, 10) || 150;
-        localStorage.setItem('motoradar_settings', JSON.stringify(state.settings));
+        safeSet('motoradar_settings', JSON.stringify(state.settings));
         render();
       };
     }
@@ -344,7 +364,7 @@ if (typeof document !== 'undefined') {
       groqKeyInput.value = state.groqKey;
       groqKeyInput.onchange = (e) => {
         state.groqKey = e.target.value.trim();
-        localStorage.setItem('motoradar_groq_key', state.groqKey);
+        safeSet('motoradar_groq_key', state.groqKey);
         toast('Klucz Groq API został zapisany.');
       };
     }
@@ -415,7 +435,7 @@ if (typeof document !== 'undefined') {
         if (starBtn) {
           e.stopPropagation();
           starredSet = toggleStar(starredSet, sKey);
-          localStorage.setItem('motoradar_starred', JSON.stringify([...starredSet]));
+          safeSet('motoradar_starred', JSON.stringify([...starredSet]));
           try {
             let watchlist = state.events
               .filter(e => isStarred(e, starredSet) || e.autoStarred)
@@ -473,7 +493,7 @@ if (typeof document !== 'undefined') {
         let title = lines[0] || 'Wydarzenie z własnego wpisu';
         let isOffroad = /rajd|offroad|4x4|teren|cross/i.test(text);
 
-        let custom = loadJson(localStorage.getItem('motoradar_custom'), []);
+        let custom = loadJson(safeGet('motoradar_custom'), []);
         let newEv = {
           title,
           fullDescription: text,
@@ -489,7 +509,7 @@ if (typeof document !== 'undefined') {
         };
 
         custom.push(newEv);
-        localStorage.setItem('motoradar_custom', JSON.stringify(custom));
+        safeSet('motoradar_custom', JSON.stringify(custom));
         if (textarea) textarea.value = '';
         closeSheet('sheetAdd');
         toast('Dodano wydarzenie pomyślnie!');
@@ -576,7 +596,7 @@ Dane wejściowe:
             });
 
             state.events = newEvents;
-            localStorage.setItem('motoradar_custom', JSON.stringify(state.events.filter(e => e.custom)));
+            safeSet('motoradar_custom', JSON.stringify(state.events.filter(e => e.custom)));
             render();
             toast(`Groq AI oczyścił listę: ${state.events.length} unikalnych wydarzeń.`);
             closeSheet('sheetSettings');
