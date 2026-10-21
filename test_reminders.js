@@ -1,7 +1,9 @@
 // Testy logiki przypomnień. Uruchomienie: node --test test_reminders.js
-const test = require('node:test');
-const assert = require('node:assert/strict');
-const R = require('./reminders.js');
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+const R = require('./reminders.cjs');
 
 // Środa, 21 października 2026, 10:47 (czas lokalny)
 const NOW = new Date(2026, 9, 21, 10, 47);

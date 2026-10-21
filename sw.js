@@ -1,13 +1,17 @@
 importScripts('./reminders.js');
 
-const CACHE_NAME = 'motoradar-v4';
+const CACHE_NAME = 'motoradar-v2';
 const ASSETS = [
   './',
   './index.html',
+  './styles.css',
   './reminders.js',
   './manifest.json',
-  './icon-192.png',
-  './icon-512.png',
+  './js/logic.js',
+  './js/app.js',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/icon-maskable-512.png',
   './events.json'
 ];
 
@@ -31,35 +35,39 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  // Cache obsługuje tylko GET (np. zapytania POST do Groq idą prosto do sieci).
   if (e.request.method !== 'GET') return;
+  let url = new URL(e.request.url);
+  if (url.pathname.endsWith('events.json')) {
+    e.respondWith(
+      fetch(e.request).then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          let clone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(e.request, clone));
+        }
+        return networkResponse;
+      }).catch(() => caches.match(e.request))
+    );
+    return;
+  }
 
   e.respondWith(
     caches.match(e.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Fetch in background to update cache
-        fetch(e.request).then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(e.request, networkResponse);
-            });
+        fetch(e.request).then((netResp) => {
+          if (netResp && netResp.status === 200) {
+            caches.open(CACHE_NAME).then((cache) => cache.put(e.request, netResp));
           }
         }).catch(() => {});
         return cachedResponse;
       }
-      return fetch(e.request).then((networkResponse) => {
-        return caches.open(CACHE_NAME).then((cache) => {
-          cache.put(e.request, networkResponse.clone());
-          return networkResponse;
-        });
-      }).catch(() => {
-        // Fallback for offline if needed
+      return fetch(e.request).then((netResp) => {
+        let clone = netResp.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(e.request, clone));
+        return netResp;
       });
     })
   );
 });
-
-// --- Przypomnienia o obserwowanych wydarzeniach -------------------------------------------
 
 function runReminderCheck() {
   return self.MotoReminders.check((title, options) =>
@@ -67,7 +75,6 @@ function runReminderCheck() {
   ).catch((err) => console.log('Reminder check failed:', err));
 }
 
-// Android (Chrome, zainstalowana aplikacja): przeglądarka budzi service worker okresowo, także przy zamkniętej aplikacji.
 self.addEventListener('periodicsync', (e) => {
   if (e.tag === 'motoradar-reminders') {
     e.waitUntil(runReminderCheck());
