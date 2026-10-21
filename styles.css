@@ -564,3 +564,30 @@ h1 span {
 @media (prefers-reduced-motion: reduce) {
   body::after, .skeleton-line { animation: none !important; }
 }
+
+/* Mobile Performance Optimizations for Budget/Weaker Android Phones */
+@media (max-width: 768px) {
+  body::before, body::after {
+    display: none !important;
+  }
+  header, .event-card, .sheet, .sheet-overlay, .search-input, .toast, .chip, .skeleton-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  header {
+    background: #050710 !important;
+  }
+  .event-card {
+    background: #0b1120 !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+  }
+  .sheet {
+    background: #0d1424 !important;
+  }
+  .sheet-overlay {
+    background: rgba(3, 7, 18, 0.92) !important;
+  }
+  .search-input {
+    background: #0b1120 !important;
+  }
+}
