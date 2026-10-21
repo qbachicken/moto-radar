@@ -5,735 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MotoRadar Skierniewice</title>
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0b0f19">
-    <style>
-        :root {
-            --bg: #0b0f19;
-            --card-bg: #131b2e;
-            --card-border: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-red: #ef4444;
-            --accent-yellow: #f59e0b;
-            --accent-green: #10b981;
-            --primary: #3b82f6;
-            --ai-purple: #8b5cf6;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            padding-bottom: 90px;
-        }
-        header {
-            background: #0f172a;
-            padding: 16px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--card-border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
-        }
-        h1 { margin: 0; font-size: 1.2rem; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
-        h1 span { color: var(--accent-red); }
-        .btn-settings {
-            background: #1e293b;
-            color: var(--text-main);
-            border: 1px solid #334155;
-            padding: 8px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-        .container { padding: 16px; max-width: 600px; margin: auto; }
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-        .card h3 { margin-top: 0; font-size: 1rem; color: #fff; margin-bottom: 10px; }
-        .card textarea, .card input[type="text"], .card input[type="password"] {
-            background: #0f172a;
-            color: white;
-            border: 1px solid #334155;
-            padding: 10px;
-            border-radius: 8px;
-            width: 100%;
-            box-sizing: border-box;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-        }
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            width: 100%;
-            font-size: 0.9rem;
-        }
-        .btn-ai {
-            background: var(--ai-purple);
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            width: 100%;
-            font-size: 0.9rem;
-            margin-top: 8px;
-        }
-        .btn-ai:hover { background: #7c3aed; }
-        .filters {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-            scrollbar-width: none;
-        }
-        .filters::-webkit-scrollbar { display: none; }
-        .filter-btn {
-            background: #1e293b;
-            color: var(--text-muted);
-            border: 1px solid var(--card-border);
-            padding: 8px 14px;
-            border-radius: 20px;
-            white-space: nowrap;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        .filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-        .event-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: border-color 0.2s, transform 0.1s;
-        }
-        .event-card:active { border-color: var(--primary); transform: scale(0.995); }
-        .event-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-        .event-title { font-size: 1.1rem; font-weight: 600; color: #fff; margin: 8px 0 8px 0; line-height: 1.4; word-break: break-word; white-space: normal; }
-        .badge { font-size: 0.7rem; padding: 4px 8px; border-radius: 6px; font-weight: 600; text-transform: uppercase; }
-        .badge.subcat { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
-        .badge.star-badge { background: rgba(245, 158, 11, 0.15); color: #fbbf24; margin-left: 6px; }
-        .badge.ai-badge { background: rgba(139, 92, 246, 0.15); color: #c4b5fd; margin-left: 6px; }
-        .star-btn {
-            background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #475569; padding: 0; line-height: 1;
-        }
-        .star-btn.active { color: var(--accent-yellow); text-shadow: 0 0 10px rgba(245,158,11,0.4); }
-        .event-footer {
-            display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid #1e293b; padding-top: 10px; margin-top: 10px;
-        }
-        .event-footer .loc { color: var(--accent-green); font-weight: 500; }
-
-        .event-details {
-            display: none;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px dashed #334155;
-            font-size: 0.9rem;
-            color: #cbd5e1;
-            line-height: 1.5;
-        }
-        .event-card.expanded .event-details {
-            display: block;
-        }
-        .btn-source {
-            display: inline-block;
-            margin-top: 12px;
-            background: #1e293b;
-            color: #60a5fa;
-            border: 1px solid #334155;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        .btn-source:hover { background: #334155; color: #fff; }
-
-        /* Modal Popup */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 1000;
-        }
-        .modal {
-            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px;
-            padding: 20px; width: 85%; max-width: 340px; text-align: center;
-        }
-        .modal h3 { margin-top: 0; color: #fff; font-size: 1.1rem; }
-        .modal p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; word-break: break-all; }
-        .modal-buttons { display: flex; gap: 10px; }
-        .modal-btn {
-            flex: 1; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; font-size: 0.9rem;
-        }
-        .modal-btn.yes { background: var(--primary); color: white; }
-        .modal-btn.no { background: #1e293b; color: var(--text-main); border: 1px solid #334155; }
-        .empty-state { text-align: center; color: var(--text-muted); padding: 40px 0; font-size: 0.95rem; }
-    </style>
+    <meta name="theme-color" content="#05070d">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-theme="dark">
 
-<header>
+<header id="appHeader">
     <h1>Moto<span>Radar</span></h1>
-    <button class="btn-settings" onclick="toggleSettings()">⚙️ Ustawienia</button>
+    <div style="display: flex; gap: 8px; align-items: center;">
+        <span id="statCount" class="count-pill">Ładowanie...</span>
+        <button id="btnSettings" class="btn-icon" aria-label="Ustawienia">⚙️ Ustawienia</button>
+    </div>
 </header>
 
 <div class="container">
-    <div id="settingsPanel" class="card" style="display: none;">
-        <h3>Ustawienia i AI</h3>
-        <label style="font-size: 0.85rem; color: var(--text-muted);">Maks. odległość (km):</label>
-        <input type="number" id="maxDist" value="150" onchange="saveSettings()" style="background:#0f172a; color:#fff; border:1px solid #334155; padding:8px; border-radius:6px; width:100%; margin-top:4px; margin-bottom:12px;">
+    <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="Input" class="search-input" placeholder="Szukaj wydarzenia, miasta, opisu..." autocomplete="off">
+    </div>
 
-        <label style="font-size: 0.85rem; color: var(--text-muted);">Klucz API Groq (dla czyszczenia AI):</label>
-        <input type="password" id="groqKeyInput" placeholder="gsk_..." onchange="saveGroqKey()" style="background:#0f172a; color:#fff; border:1px solid #334155; padding:8px; border-radius:6px; width:100%; margin-top:4px;">
-        <small style="color: var(--text-muted); display: block; margin-top: 4px;">Klucz zapisuje się wyłącznie w Twojej przeglądarce (localStorage).</small>
+    <div id="filterChips" class="chips" role="tablist" aria-label="Filtry kategorii">
+        <button class="chip" data-category="all" aria-pressed="true">Wszystkie</button>
+        <button class="chip" data-category="starred" aria-pressed="false">⭐ Ważne</button>
+        <button class="chip" data-category="rajd" aria-pressed="false">🚜 Rajdy</button>
+        <button class="chip" data-category="wyprawa" aria-pressed="false">🧭 Wyprawy</button>
+        <button class="chip" data-category="szkolenie" aria-pressed="false">🎓 Szkolenia</button>
+        <button class="chip" data-category="tor" aria-pressed="false">🏁 Tory</button>
+        <button class="chip" data-category="zlot" aria-pressed="false">🚗 Zloty</button>
+    </div>
 
-        <button class="btn-ai" onclick="runGroqAIOptimization()" style="margin-top: 12px;">✨ Usprawnij wydarzenia przez Groq AI</button>
+    <div id="eventsList" aria-live="polite">
+        <div class="skeleton-card">
+            <div class="skeleton-line" style="width: 40%; height: 16px; margin-bottom: 12px;"></div>
+            <div class="skeleton-line" style="width: 80%; height: 24px; margin-bottom: 16px;"></div>
+            <div class="skeleton-line" style="width: 50%; height: 14px;"></div>
+        </div>
+        <div class="skeleton-card">
+            <div class="skeleton-line" style="width: 30%; height: 16px; margin-bottom: 12px;"></div>
+            <div class="skeleton-line" style="width: 70%; height: 24px; margin-bottom: 16px;"></div>
+            <div class="skeleton-line" style="width: 40%; height: 14px;"></div>
+        </div>
+        <div class="skeleton-card">
+            <div class="skeleton-line" style="width: 50%; height: 16px; margin-bottom: 12px;"></div>
+            <div class="skeleton-line" style="width: 90%; height: 24px; margin-bottom: 16px;"></div>
+            <div class="skeleton-line" style="width: 45%; height: 14px;"></div>
+        </div>
+    </div>
 
-        <div style="border-top: 1px solid #334155; margin-top: 16px; padding-top: 14px;">
-            <h3 style="margin-bottom: 8px;">📱 Instalacja aplikacji</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Zainstaluj MotoRadar na telefonie (PWA), aby uruchamiać go jak zwykłą aplikację z ekranu głównego.</p>
-            <button class="btn-primary" id="installBtn" style="display:none; background: var(--accent-green);">📲 Zainstaluj aplikację</button>
-            <div id="installInstructions" style="font-size: 0.82rem; color: var(--text-muted); background: #0f172a; padding: 10px; border-radius: 8px; border: 1px solid #334155;">
+    <div id="emptyState" class="empty-state" hidden>
+        Brak wydarzeń spełniających kryteria wyszukiwania.
+    </div>
+</div>
+
+<button id="fabAdd" class="fab" aria-label="Dodaj wydarzenie">➕</button>
+
+<!-- Settings Sheet -->
+<div id="sheetSettings" class="sheet-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="sheet">
+        <h3 id="settingsTitle">Ustawienia i AI</h3>
+
+        <label for="distSlider">Maks. odległość (<span id="distValue">150</span> km):</label>
+        <input type="range" id="distSlider" min="10" max="800" step="10" value="150" style="width: 100%; margin-bottom: 16px; accent-color: var(--blue);">
+
+        <label for="groqKeyInput">Klucz API Groq (dla czyszczenia AI):</label>
+        <input type="password" id="groqKeyInput" placeholder="gsk_..." autocomplete="off">
+        <small style="color: var(--text-dim); display: block; margin-top: -8px; margin-bottom: 16px;">Klucz zapisuje się wyłącznie w Twojej przeglądarce (localStorage).</small>
+
+        <button id="aiBtn" class="btn-ai" style="margin-bottom: 16px;">✨ Usprawnij wydarzenia przez Groq AI</button>
+
+        <div style="border-top: 1px solid var(--hairline); padding-top: 16px; margin-top: 8px;">
+            <h3 style="font-size: 1rem; margin-bottom: 8px;">📱 Instalacja aplikacji</h3>
+            <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 12px;">Zainstaluj MotoRadar na telefonie (PWA), aby uruchamiać go jak zwykłą aplikację z ekranu głównego.</p>
+            <button id="installBtn" class="btn-primary" style="display:none; background: var(--emerald); margin-bottom: 12px;">📲 Zainstaluj aplikację</button>
+            <div style="font-size: 0.82rem; color: var(--text-dim); background: var(--bg-0); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--hairline);">
                 <b>Jak zainstalować w Chrome na telefonie:</b><br>
-                1. Kliknij menu (trzy kropki w prawym górnym rogu przeglądarki).<br>
+                1. Kliknij menu (trzy kropki w prawym górnym rogu).<br>
                 2. Wybierz <b>"Dodaj do ekranu głównego"</b> lub <b>"Zainstaluj aplikację"</b>.
             </div>
         </div>
 
-        <div style="border-top: 1px solid #334155; margin-top: 16px; padding-top: 14px;">
-            <h3 style="margin-bottom: 8px;">➕ Dodaj wydarzenie ręcznie</h3>
-            <textarea id="settingsFbPaste" placeholder="Wklej nazwę, datę i miejscowość..." rows="2" style="background:#0f172a; color:white; border:1px solid #334155; padding:10px; border-radius:8px; width:100%; box-sizing:border-box; font-size:0.9rem; margin-bottom:8px;"></textarea>
-            <button class="btn-primary" onclick="addFromSettingsFacebook()">Dodaj do bazy</button>
-        </div>
-    </div>
-
-    <div class="card">
-        <h3>➕ Dodaj wydarzenie</h3>
-        <textarea id="fbPaste" placeholder="Wklej nazwę, datę i miejscowość..." rows="2"></textarea>
-        <button class="btn-primary" onclick="addFromFacebook()">Dodaj do bazy</button>
-    </div>
-
-    <div class="filters">
-        <button class="filter-btn active" onclick="setFilter('all', this)">Wszystkie</button>
-        <button class="filter-btn" onclick="setFilter('starred', this)">⭐ Ważne</button>
-        <button class="filter-btn" onclick="setFilter('Rajd Przeprawowy / Trophy', this)">🚜 Rajdy</button>
-        <button class="filter-btn" onclick="setFilter('Wyprawa Turystyczna / 4x4', this)">🧭 Wyprawy</button>
-        <button class="filter-btn" onclick="setFilter('Szkolenie / Trening', this)">🎓 Szkolenia</button>
-        <button class="filter-btn" onclick="setFilter('Tor / Wyścig / Time Attack', this)">🏁 Tory</button>
-        <button class="filter-btn" onclick="setFilter('Zlot / Spot / Spotkanie', this)">🚗 Zloty</button>
-    </div>
-
-    <div id="eventsList">Ładowanie...</div>
-</div>
-
-<!-- Modal Popup -->
-<div id="sourceModal" class="modal-overlay">
-    <div class="modal">
-        <h3>Otworzyć źródło?</h3>
-        <p id="modalEventTitle">Czy chcesz przejść do oficjalnej strony tego wydarzenia?</p>
-        <div class="modal-buttons">
-            <button class="modal-btn no" onclick="closeModal()">Nie</button>
-            <button class="modal-btn yes" onclick="confirmOpenSource()">Tak, otwórz</button>
-        </div>
+        <button class="btn-icon" data-close-sheet style="width: 100%; justify-content: center; margin-top: 20px;">Zamknij</button>
     </div>
 </div>
 
-<script>
-    let events = [];
-    let settings = JSON.parse(localStorage.getItem('motoradar_settings') || '{"maxDist": 150}');
-    let groqApiKey = localStorage.getItem('motoradar_groq_key') || '';
-    let currentFilter = 'all';
-    let pendingUrl = '';
+<!-- Add Event Sheet -->
+<div id="sheetAdd" class="sheet-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="addTitle">
+    <div class="sheet">
+        <h3 id="addTitle">➕ Dodaj wydarzenie ręcznie</h3>
+        <form id="addForm">
+            <label for="addInput">Wklej nazwę, datę i miejscowość:</label>
+            <textarea id="addInput" placeholder="Np. Rajd Doliną Pilicy 25.10.2026 Tomaszów Mazowiecki..." rows="4" style="resize: vertical;"></textarea>
+            <button type="submit" class="btn-primary">Dodaj do bazy</button>
+        </form>
+        <button class="btn-icon" data-close-sheet style="width: 100%; justify-content: center; margin-top: 12px;">Anuluj</button>
+    </div>
+</div>
 
-    const MONTHS_PL = {
-        "stycznia": 0, "lutego": 1, "marca": 2, "kwietnia": 3, "maja": 4, "czerwca": 5,
-        "lipca": 6, "sierpnia": 7, "września": 8, "października": 9, "listopada": 10, "grudnia": 11
-    };
+<div id="toastHost" class="toast-host"></div>
 
-    function parseEventDate(dateStr) {
-        if (!dateStr) return null;
-        let s = dateStr.trim().toLowerCase();
-        // Match "24 października" or "23-25 października"
-        let m = s.match(/(\d{1,2})\s+(stycznia|lutego|marca|kwietnia|maja|czerwca|lipca|sierpnia|września|października|listopada|grudnia)/i);
-        if (m) {
-            let day = parseInt(m[1], 10);
-            let month = MONTHS_PL[m[2].toLowerCase()];
-            if (month !== undefined) {
-                let now = new Date();
-                let yr = now.getFullYear();
-                let dt = new Date(yr, month, day);
-                if (dt < new Date(now.getFullYear(), now.getMonth(), now.getDate() - 10) && now.getMonth() === 0) {
-                    dt.setFullYear(yr + 1);
-                }
-                return dt;
-            }
-        }
-        // Match numeric "24.10.2026" or "24/10/26"
-        let m2 = s.match(/(\d{1,2})[./-](\d{1,2})[./-](\d{2,4})/);
-        if (m2) {
-            let day = parseInt(m2[1], 10);
-            let month = parseInt(m2[2], 10) - 1;
-            let yr = m2[3];
-            let year = yr.length === 2 ? 2000 + parseInt(yr, 10) : parseInt(yr, 10);
-            return new Date(year, month, day);
-        }
-        return null;
-    }
-
-    function checkEventNotifications() {
-        let starredEvents = events.filter(e => e.starred || e.autoStarred);
-        if (starredEvents.length === 0) return;
-
-        let now = new Date();
-        let todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        let timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-        let notifiedKey = 'motoradar_notified_' + todayMidnight.toDateString();
-        let notifiedSet = JSON.parse(localStorage.getItem(notifiedKey) || '[]');
-
-        starredEvents.forEach((ev, idx) => {
-            let dt = parseEventDate(ev.date);
-            if (!dt) return;
-            let evMidnight = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
-            let diffDays = Math.round((evMidnight - todayMidnight) / (1000 * 60 * 60 * 24));
-
-            // diffDays: -3 (3 dni temu), -2 (2 dni temu), -1 (wczoraj), 0 (dzisiaj)
-            if (diffDays >= -3 && diffDays <= 0) {
-                let uniqueId = ev.title + '_' + ev.date;
-                if (!notifiedSet.includes(uniqueId)) {
-                    notifiedSet.push(uniqueId);
-                    localStorage.setItem(notifiedKey, JSON.stringify(notifiedSet));
-
-                    let whenText = "";
-                    if (diffDays === 0) whenText = `DZISIAJ o godzinie ${timeStr}!`;
-                    else if (diffDays === -1) whenText = `Wczoraj (${ev.date}) o godzinie ${timeStr}`;
-                    else if (diffDays === -2) whenText = `Przedwczoraj (${ev.date}) o godzinie ${timeStr}`;
-                    else whenText = `3 dni temu (${ev.date}) o godzinie ${timeStr}`;
-
-                    triggerBrowserNotification(`🔔 Przypomnienie o obserwowanym wydarzeniu!`, `${ev.title} (${ev.location || 'Okolica'}) miało miejsce/odbywa się: ${whenText}`);
-                }
-            }
-        });
-    }
-
-    function triggerBrowserNotification(title, body) {
-        if ("Notification" in window) {
-            if (Notification.permission === "granted") {
-                new Notification(title, { body: body, icon: 'https://cdn-icons-png.flaticon.com/512/3774/3774278.png' });
-            } else if (Notification.permission !== "denied") {
-                Notification.requestPermission().then(permission => {
-                    if (permission === "granted") {
-                        new Notification(title, { body: body, icon: 'https://cdn-icons-png.flaticon.com/512/3774/3774278.png' });
-                    }
-                });
-            }
-        }
-    }
-
-    document.getElementById('maxDist').value = settings.maxDist;
-    document.getElementById('groqKeyInput').value = groqApiKey;
-
-    function toggleSettings() {
-        let p = document.getElementById('settingsPanel');
-        p.style.display = p.style.display === 'none' ? 'block' : 'none';
-    }
-
-    function saveSettings() {
-        settings.maxDist = parseInt(document.getElementById('maxDist').value) || 150;
-        localStorage.setItem('motoradar_settings', JSON.stringify(settings));
-        renderEvents();
-    }
-
-    function saveGroqKey() {
-        groqApiKey = document.getElementById('groqKeyInput').value.trim();
-        localStorage.setItem('motoradar_groq_key', groqApiKey);
-        alert('Klucz Groq API został zapisany lokalnie!');
-    }
-
-    function normalizeTitle(title) {
-        return (title || '').toLowerCase().replace(/[\W_]+/g, '');
-    }
-
-    async function loadEvents() {
-        try {
-            let res = await fetch('events.json?_=' + Date.now());
-            let data = await res.json();
-            let localCustom = JSON.parse(localStorage.getItem('motoradar_custom') || '[]');
-            localStorage.removeItem('motoradar_ai_optimized');
-
-            let combined = [...localCustom, ...data];
-            let approxRegions = ["Jura", "Wał Pomorski", "Śląsk", "Zagłębie", "Jurajskie", "Gorce", "Spisz", "Kotlina Jeleniogórska", "Sudeckie", "Pomorski", "Lubuski", "Świętokrzyskie", "Pustynia Siedlecka", "Pustynia Błędowska"];
-            let uniqueEvents = [];
-            for (let ev of combined) {
-                if (ev.subCategory === "Rajd / Offroad" || ev.subCategory === "Rajd") {
-                    ev.subCategory = "Rajd Przeprawowy / Trophy";
-                } else if (ev.subCategory === "Zlot / Spot" || ev.subCategory === "Zlot") {
-                    ev.subCategory = "Zlot / Spot / Spotkanie";
-                }
-                if ((!ev.location || ev.location === "Nieznana") && ev.distanceKm === 0) {
-                    ev.distanceKm = null;
-                    ev.locationType = "unknown";
-                }
-                if (!ev.locationType) {
-                    if (!ev.location || ev.location === "Nieznana") {
-                        ev.locationType = "unknown";
-                        ev.distanceKm = null;
-                    } else if (approxRegions.includes(ev.location)) {
-                        ev.locationType = "approximate";
-                    } else {
-                        ev.locationType = "exact";
-                    }
-                }
-                let normT = normalizeTitle(ev.title);
-                let d = (ev.date || '').trim().toLowerCase();
-                let dup = uniqueEvents.find(existing => {
-                    let exNormT = normalizeTitle(existing.title);
-                    let exD = (existing.date || '').trim().toLowerCase();
-                    return d === exD && (normT === exNormT || normT.includes(exNormT) || exNormT.includes(normT));
-                });
-                if (!dup) {
-                    uniqueEvents.push(ev);
-                } else {
-                    if ((ev.fullDescription || '').length > (dup.fullDescription || '').length) {
-                        dup.fullDescription = ev.fullDescription;
-                    }
-                    if (ev.source && !dup.source) {
-                        dup.source = ev.source;
-                    }
-                }
-            }
-            events = uniqueEvents;
-            renderEvents();
-            checkEventNotifications();
-        } catch (e) {
-            document.getElementById('eventsList').innerHTML = '<div class="empty-state">Błąd pobierania danych.</div>';
-        }
-    }
-
-    function setFilter(filter, btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentFilter = filter;
-        renderEvents();
-    }
-
-    function toggleStar(event, index) {
-        event.stopPropagation();
-        events[index].starred = !events[index].starred;
-        if (events[index].starred) {
-            playAlertSound();
-        }
-        saveCurrentEventsState();
-        renderEvents();
-    }
-
-    function saveCurrentEventsState() {
-        localStorage.setItem('motoradar_custom', JSON.stringify(events.filter(e => e.custom)));
-        localStorage.setItem('motoradar_ai_optimized', JSON.stringify(events));
-    }
-
-    function playAlertSound() {
-        try {
-            let ctx = new (window.AudioContext || window.webkitAudioContext)();
-            let osc = ctx.createOscillator();
-            let gain = ctx.createGain();
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(587.33, ctx.currentTime);
-            gain.gain.setValueAtTime(0.1, ctx.currentTime);
-            osc.start();
-            osc.stop(ctx.currentTime + 0.2);
-        } catch (e) {}
-    }
-
-    function toggleExpand(cardElement) {
-        cardElement.classList.toggle('expanded');
-    }
-
-    function openSourceModal(event, title, url) {
-        event.stopPropagation();
-        pendingUrl = url || 'https://klasyki24.pl';
-        document.getElementById('modalEventTitle').innerText = "Otworzyć stronę źródłową dla:\n" + title;
-        document.getElementById('sourceModal').style.display = 'flex';
-    }
-
-    function closeModal() {
-        document.getElementById('sourceModal').style.display = 'none';
-        pendingUrl = '';
-    }
-
-    function confirmOpenSource() {
-        if (pendingUrl) {
-            window.open(pendingUrl, '_blank');
-        }
-        closeModal();
-    }
-
-    async function runGroqAIOptimization() {
-        if (!groqApiKey) {
-            alert('Najpierw wpisz i zapisz swój klucz Groq API w ustawieniach!');
-            toggleSettings();
-            return;
-        }
-
-        let btn = document.querySelector('.btn-ai');
-        btn.innerText = "⏳ Groq AI porządkuje i deduplikuje...";
-        btn.disabled = true;
-
-        try {
-            let rawList = events.map((e, i) => ({
-                id: i,
-                title: e.title,
-                date: e.date,
-                location: e.location,
-                desc: e.fullDescription || e.title,
-                source: e.source
-            }));
-
-            let prompt = `Jesteś głównym asystentem AI aplikacji motoryzacyjnej MotoRadar. Otrzymujesz listę surowych wydarzeń motoryzacyjnych zebranych z wielu różnych kalendarzy. Twoim zadaniem jest:
-1. Usunąć duplikaty (jeśli to samo wydarzenie występuje w różnych źródłach dla tej samej daty i miasta, zostaw tylko JEDNą najlepszą pozycję).
-2. Odrzucić wydarzenia spamowe lub niebędące motoryzacyjnymi.
-3. Dla każdego unikalnego wydarzenia przygotować czysty, profesjonalny i chwytliwy tytuł ("cleanTitle", max 45 znaków) oraz zwięzły opis ("cleanDesc", 1-2 zdania po polsku).
-
-Zwróć wynik WYŁĄCZNIE jako tablicę JSON w formacie:
-[
-  {
-    "originalIds": [0, 2],
-    "cleanTitle": "...",
-    "cleanDesc": "...",
-    "date": "...",
-    "location": "...",
-    "subCategory": "Jedna z 5 dokładnych podkategorii: Rajd Przeprawowy / Trophy, Wyprawa Turystyczna / 4x4, Szkolenie / Trening, Tor / Wyścig / Time Attack, Zlot / Spot / Spotkanie",
-    "source": "..."
-  },
-  ...
-]
-
-Oto dane wejściowe:
-` + JSON.stringify(rawList);
-
-            let response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-                method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${groqApiKey}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    model: "llama-3.3-70b-versatile",
-                    messages: [
-                        { role: "system", content: "You are a precise JSON-only data cleaning and deduplication assistant." },
-                        { role: "user", content: prompt }
-                    ],
-                    temperature: 0.1
-                })
-            });
-
-            let result = await response.json();
-            let content = result.choices[0].message.content;
-
-            let jsonMatch = content.match(/\[[\s\S]*\]/);
-            if (jsonMatch) {
-                let cleanedData = JSON.parse(jsonMatch[0]);
-
-                let newEvents = cleanedData.map(item => {
-                    // Try to preserve original distance/coords if matched
-                    let orig = events[item.originalIds?.[0]] || events[0];
-                    let subCat = item.subCategory || orig.subCategory || "Zlot / Spot";
-                    let isOffroad = /rajd|offroad|4x4|teren|cross/i.test(item.cleanTitle + " " + item.cleanDesc);
-
-                    return {
-                        title: item.cleanTitle,
-                        fullDescription: item.cleanDesc,
-                        subCategory: isOffroad ? "Rajd / Offroad" : subCat,
-                        location: item.location || orig.location || "Okolica",
-                        distanceKm: orig.distanceKm || 25,
-                        autoStarred: isOffroad,
-                        starred: isOffroad || orig.starred,
-                        date: item.date || orig.date || "Wkrótce",
-                        source: item.source || orig.source || "https://klasyki24.pl",
-                        aiOptimized: true
-                    };
-                });
-
-                events = newEvents;
-                saveCurrentEventsState();
-                renderEvents();
-                alert(`Groq AI pomyślnie oczyścił listę! Usunięto duplikaty, zostawiając ${events.length} unikalnych wydarzeń.`);
-            } else {
-                throw new Error("Nie udało się sparsować odpowiedzi JSON z Groq.");
-            }
-        } catch (err) {
-            console.error(err);
-            alert('Błąd podczas optymalizacji Groq AI: ' + err.message);
-        } finally {
-            btn.innerText = "✨ Usprawnij wydarzenia przez Groq AI";
-            btn.disabled = false;
-        }
-    }
-
-    function renderEvents() {
-        let list = document.getElementById('eventsList');
-        let filtered = events.filter(e => {
-            if (e.distanceKm > settings.maxDist) return false;
-            if (currentFilter === 'starred' && !e.starred && !e.autoStarred) return false;
-            if (currentFilter !== 'all' && currentFilter !== 'starred' && e.subCategory !== currentFilter) return false;
-            return true;
-        });
-
-        if (filtered.length === 0) {
-            list.innerHTML = '<div class="empty-state">Brak wydarzeń w wybranym promieniu.</div>';
-            return;
-        }
-
-        list.innerHTML = filtered.map((e, idx) => {
-            let realIdx = events.indexOf(e);
-            let isStarred = e.starred || e.autoStarred;
-            let safeTitle = (e.title || '').replace(/'/g, "\\'");
-            let desc = e.fullDescription || e.title || 'Brak dodatkowego opisu.';
-            return `
-                <div class="event-card" onclick="toggleExpand(this)">
-                    <div class="event-header">
-                        <div>
-                            <span class="badge subcat">${e.subCategory || 'Zlot'}</span>
-                            ${isStarred ? '<span class="badge star-badge">⭐ Priorytet</span>' : ''}
-                            ${e.aiOptimized ? '<span class="badge ai-badge">✨ AI</span>' : ''}
-                        </div>
-                        <button class="star-btn ${isStarred ? 'active' : ''}" onclick="toggleStar(event, ${realIdx})">⭐</button>
-                    </div>
-                    <div class="event-title">${e.title}</div>
-                    <div class="event-footer">
-                        <span>📅 ${e.date || 'Wkrótce'}</span>
-                        <span class="loc">📍 ${e.location === 'Nieznana' ? 'Nieznana lokalizacja' : (e.location || 'Okolica') + ' / ' + e.distanceKm + ' km'}</span>
-                    </div>
-                    <div class="event-details">
-                        <p style="margin: 0 0 10px 0; color: #94a3b8; font-size: 0.85rem;">Szczegóły wydarzenia:</p>
-                        <p style="margin: 0;">${desc}</p>
-                        <button class="btn-source" onclick="openSourceModal(event, '${safeTitle}', '${e.source || ''}')">🔗 Otwórz stronę źródłową</button>
-                    </div>
-                </div>
-            `;
-        }).join('');
-    }
-
-    function addFromFacebook() {
-        let text = document.getElementById('fbPaste').value.trim();
-        if (!text) return;
-        let lines = text.split('\n').map(l => l.trim()).filter(Boolean);
-        let title = lines[0] || "Wydarzenie z własnego wpisu";
-        let isOffroad = /rajd|offroad|4x4|teren|cross/i.test(text);
-
-        let custom = JSON.parse(localStorage.getItem('motoradar_custom') || '[]');
-        let normTitle = normalizeTitle(title);
-        let exists = custom.some(e => normalizeTitle(e.title) === normTitle) || events.some(e => normalizeTitle(e.title) === normTitle);
-        if (exists) {
-            alert('To wydarzenie znajduje się już w bazie!');
-            document.getElementById('fbPaste').value = '';
-            return;
-        }
-
-        let newEv = {
-            title: title,
-            fullDescription: text,
-            subCategory: isOffroad ? "Rajd Przeprawowy / Trophy" : "Zlot / Spot / Spotkanie",
-            location: "Skierniewice",
-            locationType: "exact",
-            distanceKm: 0,
-            autoStarred: false,
-            starred: false,
-            date: "Najbliższy termin",
-            custom: true,
-            source: "https://facebook.com"
-        };
-        custom.push(newEv);
-        localStorage.setItem('motoradar_custom', JSON.stringify(custom));
-        document.getElementById('fbPaste').value = '';
-        loadEvents();
-        alert('Dodano wydarzenie pomyślnie!');
-    }
-
-    function addFromSettingsFacebook() {
-        let text = document.getElementById('settingsFbPaste').value.trim();
-        if (!text) return;
-        let lines = text.split('\n').map(l => l.trim()).filter(Boolean);
-        let title = lines[0] || "Wydarzenie z własnego wpisu";
-        let isOffroad = /rajd|offroad|4x4|teren|cross/i.test(text);
-
-        let custom = JSON.parse(localStorage.getItem('motoradar_custom') || '[]');
-        let normTitle = normalizeTitle(title);
-        let exists = custom.some(e => normalizeTitle(e.title) === normTitle) || events.some(e => normalizeTitle(e.title) === normTitle);
-        if (exists) {
-            alert('To wydarzenie znajduje się już w bazie!');
-            document.getElementById('settingsFbPaste').value = '';
-            return;
-        }
-
-        let newEv = {
-            title: title,
-            fullDescription: text,
-            subCategory: isOffroad ? "Rajd Przeprawowy / Trophy" : "Zlot / Spot / Spotkanie",
-            location: "Skierniewice",
-            locationType: "exact",
-            distanceKm: 0,
-            autoStarred: false,
-            starred: false,
-            date: "Najbliższy termin",
-            custom: true,
-            source: "https://facebook.com"
-        };
-        custom.push(newEv);
-        localStorage.setItem('motoradar_custom', JSON.stringify(custom));
-        document.getElementById('settingsFbPaste').value = '';
-        loadEvents();
-        alert('Dodano wydarzenie pomyślnie!');
-    }
-
-    loadEvents();
-
-    // PWA Service Worker Registration & Install Prompt
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        let btn = document.getElementById('installBtn');
-        if (btn) {
-            btn.style.display = 'block';
-            btn.onclick = async () => {
-                deferredPrompt.prompt();
-                let choiceResult = await deferredPrompt.userChoice;
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                }
-                deferredPrompt = null;
-                btn.style.display = 'none';
-            };
-        }
-    });
-
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('ServiceWorker registered successfully:', reg.scope))
-                .catch(err => console.log('ServiceWorker registration failed:', err));
-        });
-    }
-</script>
+<script type="module" src="js/app.js"></script>
 </body>
 </html>

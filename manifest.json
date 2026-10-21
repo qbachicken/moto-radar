@@ -1,16 +1,33 @@
 {
   "name": "MotoRadar Skierniewice",
   "short_name": "MotoRadar",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
-  "background_color": "#0b0f19",
-  "theme_color": "#0b0f19",
+  "background_color": "#05070d",
+  "theme_color": "#05070d",
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='110' fill='%23131b2e'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-size='240'>🏍️</text></svg>",
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "type": "image/png"
+    },
+    {
+      "src": "./icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dodaj wydarzenie",
+      "url": "./?action=add",
+      "description": "Szybkie dodawanie wydarzenia motoryzacyjnego"
     }
   ]
 }

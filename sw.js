@@ -1,9 +1,14 @@
-const CACHE_NAME = 'motoradar-v1';
+const CACHE_NAME = 'motoradar-v2';
 const ASSETS = [
   './',
   './index.html',
+  './styles.css',
   './manifest.json',
-  './events.json'
+  './js/logic.js',
+  './js/app.js',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/icon-maskable-512.png'
 ];
 
 self.addEventListener('install', (e) => {
@@ -23,30 +28,40 @@ self.addEventListener('activate', (e) => {
       );
     })
   );
-  self.claim();
+  self.clients.claim();
 });
 
 self.addEventListener('fetch', (e) => {
+  let url = new URL(e.request.url);
+  if (url.pathname.endsWith('events.json')) {
+    // Network first for events data
+    e.respondWith(
+      fetch(e.request).then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          let clone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(e.request, clone));
+        }
+        return networkResponse;
+      }).catch(() => caches.match(e.request))
+    );
+    return;
+  }
+
+  // Cache first for shell assets
   e.respondWith(
     caches.match(e.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Fetch in background to update cache
-        fetch(e.request).then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200) {
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(e.request, networkResponse);
-            });
+        fetch(e.request).then((netResp) => {
+          if (netResp && netResp.status === 200) {
+            caches.open(CACHE_NAME).then((cache) => cache.put(e.request, netResp));
           }
         }).catch(() => {});
         return cachedResponse;
       }
-      return fetch(e.request).then((networkResponse) => {
-        return caches.open(CACHE_NAME).then((cache) => {
-          cache.put(e.request, networkResponse.clone());
-          return networkResponse;
-        });
-      }).catch(() => {
-        // Fallback for offline if needed
+      return fetch(e.request).then((netResp) => {
+        let clone = netResp.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(e.request, clone));
+        return netResp;
       });
     })
   );
