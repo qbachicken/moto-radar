@@ -1,39 +1,15 @@
 [
   {
-    "title": "Dal tenore italiano al maestro del volante – la straordinaria storia di una mercedes",
-    "fullDescription": "Dal tenore italiano al maestro del volante – la straordinaria storia di una Mercedes 22 października 2026",
-    "subCategory": "Zlot / Spot / Spotkanie",
-    "location": "Nieznana",
-    "locationType": "unknown",
-    "distanceKm": null,
-    "autoStarred": false,
-    "starred": false,
-    "date": "22 października",
-    "source": "https://klasyki24.pl/mercedes-benz-220-seb-w111-coupe-del-1963-storia-e-restauro/"
-  },
-  {
-    "title": "Dzień za kierownicą terenówki",
-    "fullDescription": "Dzień Za Kierownicą Terenówki 22-10-2026 - 22-10-2026 Gmina Gniewino Jedziemy w teren! 10 Października (niedziela) zapraszamy na kolejny Dzień Za Kierownicą Terenówki – idealny dla …",
-    "subCategory": "Zlot / Spot / Spotkanie",
-    "location": "Nieznana",
-    "locationType": "unknown",
-    "distanceKm": null,
-    "autoStarred": false,
-    "starred": false,
-    "date": "22-10-2026",
-    "source": "https://www.google.com/search?q=Dzie%C5%84%20za%20kierownic%C4%85%20teren%C3%B3wki%20Nieznana%202026"
-  },
-  {
-    "title": "Poza szlakiem - gra terenowa",
-    "fullDescription": "Poza Szlakiem - Gra Terenowa 22-10-2026 - 22-10-2026 Borkowo, Gdansk, Poland Lubisz przygodę, aktywność na świeżym powietrzu i odkrywanie nowych miejsc? Zapraszamy na „Poza Szlakiem – grę …",
+    "title": "Gorce i polski spisz wyprawa 4x4",
+    "fullDescription": "Gorce I Polski Spisz - Wyprawa 4x4 23-10-2026 - 25-10-2026 Kudowianka Gorce jesienią to najlepsze i najbardziej widokowe góry, które możemy przemierzyć samochodami terenowymi a łączymy te …",
     "subCategory": "Wyprawa Turystyczna / 4x4",
-    "location": "Nieznana",
-    "locationType": "unknown",
-    "distanceKm": null,
+    "location": "Gorce",
+    "locationType": "approximate",
+    "distanceKm": 268,
     "autoStarred": false,
     "starred": false,
-    "date": "22-10-2026",
-    "source": "https://www.google.com/search?q=Poza%20szlakiem%20-%20gra%20terenowa%20Nieznana%202026"
+    "date": "23-10-2026",
+    "source": "https://www.google.com/search?q=Gorce%20i%20polski%20spisz%20wyprawa%204x4%20Gorce%202026"
   },
   {
     "title": "Xxiv zmota challenge",
@@ -60,18 +36,6 @@
     "source": "https://www.google.com/search?q=%C5%9Aladami%20karawan%20Maroko%202026"
   },
   {
-    "title": "Gorce i polski spisz wyprawa 4x4",
-    "fullDescription": "Gorce I Polski Spisz - Wyprawa 4x4 23-10-2026 - 25-10-2026 Kudowianka Gorce jesienią to najlepsze i najbardziej widokowe góry, które możemy przemierzyć samochodami terenowymi a łączymy te …",
-    "subCategory": "Wyprawa Turystyczna / 4x4",
-    "location": "Gorce",
-    "locationType": "approximate",
-    "distanceKm": 268,
-    "autoStarred": false,
-    "starred": false,
-    "date": "23-10-2026",
-    "source": "https://www.google.com/search?q=Gorce%20i%20polski%20spisz%20wyprawa%204x4%20Gorce%202026"
-  },
-  {
     "title": "Sob śląskie wyrazów off-road jura, pustynia siedlecka & finisz na torze wygryzów 4x4",
     "fullDescription": "Pustynia Siedlecka I Wygryzów 4x4 24-10-2026 - 24-10-2026 Pustynia Siedlecka ​ OFF-ROAD JURA, PUSTYNIA SIEDLECKA &amp; FINISZ NA TORZE WYGRYZÓW 4x4 ​ Data: 24 października Czas …",
     "subCategory": "Rajd Przeprawowy / Trophy",
@@ -82,6 +46,18 @@
     "starred": false,
     "date": "24-10-2026",
     "source": "https://www.google.com/search?q=Sob%20%C5%9Bl%C4%85skie%20wyraz%C3%B3w%20off-road%20jura%2C%20pustynia%20siedlecka%20%26%20finisz%20na%20torze%20wygryz%C3%B3w%204x4%20Pustynia%20Siedlecka%202026"
+  },
+  {
+    "title": "Off road driving training",
+    "fullDescription": "Off Road Driving Training 24-10-2026 - 25-10-2026 Ignalin SZKOLENIE OFF-ROADTechnika jazdy przeprawowej • Podstawy jazdy rajdowej • Pełne wykorzystanie możliwości 4x424–25 października 2026 | …",
+    "subCategory": "Szkolenie / Trening",
+    "location": "Ignalin",
+    "locationType": "exact",
+    "distanceKm": 243,
+    "autoStarred": false,
+    "starred": false,
+    "date": "24-10-2026",
+    "source": "https://www.google.com/search?q=Off%20road%20driving%20training%20Ignalin%202026"
   },
   {
     "title": "Kozaki ix",
@@ -108,18 +84,6 @@
     "source": "https://www.google.com/search?q=Samochod%C3%B3w%20terenowych%20lubuski%20armagedon%203%20Lubuski%202026"
   },
   {
-    "title": "Off road driving training",
-    "fullDescription": "Off Road Driving Training 24-10-2026 - 25-10-2026 Ignalin SZKOLENIE OFF-ROADTechnika jazdy przeprawowej • Podstawy jazdy rajdowej • Pełne wykorzystanie możliwości 4x424–25 października 2026 | …",
-    "subCategory": "Szkolenie / Trening",
-    "location": "Ignalin",
-    "locationType": "exact",
-    "distanceKm": 243,
-    "autoStarred": false,
-    "starred": false,
-    "date": "24-10-2026",
-    "source": "https://www.google.com/search?q=Off%20road%20driving%20training%20Ignalin%202026"
-  },
-  {
     "title": "Podstawowe szkolenie 4x4",
     "fullDescription": "25.10.2026 Podstawowe Szkolenie 4x4 25-10-2026 Roździeńskiego 2b, Piekary Śląskie, Poland Rodzaj wydarzenia:SZKOLENIE 4X4 DLA POCZĄTKUJĄCYCHOdkryj Potencjał swojej terenówki. Poznaj fascynujący świat jazdy terenowej podczas jednodniowego szkolenia …",
     "subCategory": "Szkolenie / Trening",
@@ -135,13 +99,13 @@
     "title": "Hello in - nocne pieczątki na szlaku",
     "fullDescription": "30.10.2026 - Hello In - Pieczątki Na Szlaku 30-10-2026 Szutrowa, Kroczyce, Poland EASY GAME TRACK ADVENTURE - \"Hallo In\" - trasa #6Nocne, rodzinne pieczątki na szlaku.Data: 30.10.2026 r.; …",
     "subCategory": "Wyprawa Turystyczna / 4x4",
-    "location": "Jura",
-    "locationType": "approximate",
+    "location": "Kroczyce",
+    "locationType": "exact",
     "distanceKm": 158,
     "autoStarred": false,
     "starred": false,
     "date": "30.10.2026",
-    "source": "https://www.google.com/search?q=Hello%20in%20-%20nocne%20piecz%C4%85tki%20na%20szlaku%20Jura%202026"
+    "source": "https://www.google.com/search?q=Hello%20in%20-%20nocne%20piecz%C4%85tki%20na%20szlaku%20Kroczyce%202026"
   },
   {
     "title": "Halloween - nocna wyprawa - świętokrzyskie wyjazdy terenowe",
@@ -156,18 +120,6 @@
     "source": "https://www.google.com/search?q=Halloween%20-%20nocna%20wyprawa%20-%20%C5%9Bwi%C4%99tokrzyskie%20wyjazdy%20terenowe%20%C5%9Awi%C4%99tokrzyskie%202026"
   },
   {
-    "title": "Jura z duchami z ekipa piaskownica 4x4",
-    "fullDescription": "\"Jura Z Duchami \" Z Ekipa Piaskownica 4x4 - 31.10.2026 31-10-2026 Jura Krakowsko-Częstochowska \"JURA Z DUCHAMI \"Offroadowy halloween z Ekipa Piaskownica 4x4 wśród tajemniczych zamków jurajskichJuż Celtowie wierzyli, że …",
-    "subCategory": "Wyprawa Turystyczna / 4x4",
-    "location": "Jura",
-    "locationType": "approximate",
-    "distanceKm": 158,
-    "autoStarred": false,
-    "starred": false,
-    "date": "31.10.2026",
-    "source": "https://www.google.com/search?q=Jura%20z%20duchami%20z%20ekipa%20piaskownica%204x4%20Jura%202026"
-  },
-  {
     "title": "Jeepandgrille",
     "fullDescription": "Jeepandgrille 31-10-2026 - 31-10-2026 Poligon4x4 Góra Kalwaria pod Warszawą 🔥 JEEPANDGRILLE — PIERWSZA EDYCJA ZLOTU JEEPÓW!📅 31 października 2026📍 Poligon 4x4 — Góra Kalwaria pod …",
     "subCategory": "Rajd Przeprawowy / Trophy",
@@ -178,6 +130,18 @@
     "starred": false,
     "date": "31-10-2026",
     "source": "https://www.google.com/search?q=Jeepandgrille%20G%C3%B3ra%20Kalwaria%202026"
+  },
+  {
+    "title": "Jura z duchami z ekipa piaskownica 4x4",
+    "fullDescription": "\"Jura Z Duchami \" Z Ekipa Piaskownica 4x4 - 31.10.2026 31-10-2026 Jura Krakowsko-Częstochowska \"JURA Z DUCHAMI \"Offroadowy halloween z Ekipa Piaskownica 4x4 wśród tajemniczych zamków jurajskichJuż Celtowie wierzyli, że …",
+    "subCategory": "Wyprawa Turystyczna / 4x4",
+    "location": "Jura",
+    "locationType": "approximate",
+    "distanceKm": 158,
+    "autoStarred": false,
+    "starred": false,
+    "date": "31.10.2026",
+    "source": "https://www.google.com/search?q=Jura%20z%20duchami%20z%20ekipa%20piaskownica%204x4%20Jura%202026"
   },
   {
     "title": "Chop shop night spot",
@@ -204,16 +168,16 @@
     "source": "https://www.google.com/search?q=Pustynia%20b%C5%82%C4%99dowska%20-%20jura%20dla%20amatora%20Jura%202026"
   },
   {
-    "title": "Kierunek: teren! | zlot suzuki jimny 2026",
-    "fullDescription": "Kierunek: Teren! | Zlot Suzuki Jimny 2026 07-11-2026 Poligon4x4 Twój Jimny zasługuje na trochę błota! Zapraszamy wszystkich właścicieli Suzuki Jimny na kolejne spotkanie miłośników tego …",
+    "title": "Niepodległości 2026 z bad_boy 4x4 trzcianka minionki na bezdroża",
+    "fullDescription": "Rajd Niepodległości 2026 Z Bad_Boy 4x4 Trzcianka \"Minionki Na Bezdroża 07-11-2026 64-980 Trzcianka, Poland UWAGA ELEKTRONICZNE PIECZĄTKI !!! - od K-44Nowa Klasa na PIECHOTĘ Rajd odbywać się będzie w Kuźnica …",
     "subCategory": "Rajd Przeprawowy / Trophy",
-    "location": "Skierniewice",
+    "location": "Trzcianka",
     "locationType": "exact",
-    "distanceKm": 0,
+    "distanceKm": 277,
     "autoStarred": false,
     "starred": false,
     "date": "07-11-2026",
-    "source": "https://www.google.com/search?q=Kierunek%3A%20teren%21%20%7C%20zlot%20suzuki%20jimny%202026%20Skierniewice%202026"
+    "source": "https://www.google.com/search?q=Niepodleg%C5%82o%C5%9Bci%202026%20z%20bad_boy%204x4%20trzcianka%20minionki%20na%20bezdro%C5%BCa%20Trzcianka%202026"
   },
   {
     "title": "Hard smor quad - iii runda przeprawowego rajdu atv",
@@ -228,16 +192,16 @@
     "source": "https://www.google.com/search?q=Hard%20smor%20quad%20-%20iii%20runda%20przeprawowego%20rajdu%20atv%20Nieznana%202026"
   },
   {
-    "title": "Niepodległości 2026 z bad_boy 4x4 trzcianka minionki na bezdroża",
-    "fullDescription": "Rajd Niepodległości 2026 Z Bad_Boy 4x4 Trzcianka \"Minionki Na Bezdroża 07-11-2026 64-980 Trzcianka, Poland UWAGA ELEKTRONICZNE PIECZĄTKI !!! - od K-44Nowa Klasa na PIECHOTĘ Rajd odbywać się będzie w Kuźnica …",
+    "title": "Kierunek: teren! | zlot suzuki jimny 2026",
+    "fullDescription": "Kierunek: Teren! | Zlot Suzuki Jimny 2026 07-11-2026 Poligon4x4 Twój Jimny zasługuje na trochę błota! Zapraszamy wszystkich właścicieli Suzuki Jimny na kolejne spotkanie miłośników tego …",
     "subCategory": "Rajd Przeprawowy / Trophy",
-    "location": "Trzcianka",
+    "location": "Skierniewice",
     "locationType": "exact",
-    "distanceKm": 277,
+    "distanceKm": 0,
     "autoStarred": false,
     "starred": false,
     "date": "07-11-2026",
-    "source": "https://www.google.com/search?q=Niepodleg%C5%82o%C5%9Bci%202026%20z%20bad_boy%204x4%20trzcianka%20minionki%20na%20bezdro%C5%BCa%20Trzcianka%202026"
+    "source": "https://www.google.com/search?q=Kierunek%3A%20teren%21%20%7C%20zlot%20suzuki%20jimny%202026%20Skierniewice%202026"
   },
   {
     "title": "4×4, listopadowy offroad przez dzikie karpaty",
@@ -316,7 +280,7 @@
     "fullDescription": "Zamojska Przygoda 4x4 13-11-2026 - 15-11-2026 Okolice Zamościa Serdecznie zapraszamy całe rodziny na turystyczno-offradowy weekend do Zamościa i okolic, pełnych wspaniałych widoków, niezwykłych miejsc …",
     "subCategory": "Wyprawa Turystyczna / 4x4",
     "location": "Zamość",
-    "locationType": "exact",
+    "locationType": "unknown",
     "distanceKm": 256,
     "autoStarred": false,
     "starred": false,
@@ -334,6 +298,30 @@
     "starred": false,
     "date": "14.11.2026",
     "source": "https://www.google.com/search?q=Jura%20dla%20amatora%20-%20mi%C4%99dzy%20jeziorami%20Jura%202026"
+  },
+  {
+    "title": "Jura suv-em - wieczorową porą !",
+    "fullDescription": "Jura Suv-Em - Wieczorową Porą ! - 14.11.2026 14-11-2026 - 14-11-2026 Jura Krakowsko-Częstochowska Czy na Jurze po zmroku straszy??!! Dowiemy się już 14.11.2026 Zapraszamy Was do wspólnej zabawy po …",
+    "subCategory": "Zlot / Spot / Spotkanie",
+    "location": "Jura",
+    "locationType": "approximate",
+    "distanceKm": 158,
+    "autoStarred": false,
+    "starred": false,
+    "date": "14.11.2026",
+    "source": "https://www.google.com/search?q=Jura%20suv-em%20-%20wieczorow%C4%85%20por%C4%85%20%21%20Jura%202026"
+  },
+  {
+    "title": "Sob jelenia góra 2 runda h6 2026 jelenia góra",
+    "fullDescription": "H6 Rally - 2 Runda 2026 Jelenia Góra 14-11-2026 - 14-11-2026 Jelenia Góra Zapraszamy wszystkich na drugą rundę H6 czyli 6 godziny wyścig przeprawowy w taśmach.Będziemy mieć 4 klasy. …",
+    "subCategory": "Tor / Wyścig / Time Attack",
+    "location": "Jelenia Góra",
+    "locationType": "exact",
+    "distanceKm": 328,
+    "autoStarred": false,
+    "starred": false,
+    "date": "14-11-2026",
+    "source": "https://www.google.com/search?q=Sob%20jelenia%20g%C3%B3ra%202%20runda%20h6%202026%20jelenia%20g%C3%B3ra%20Jelenia%20G%C3%B3ra%202026"
   },
   {
     "title": "Szczycie",
@@ -360,30 +348,6 @@
     "source": "https://www.google.com/search?q=Piaskami%20pustyni%20-%20pustynia%20b%C5%82%C4%99dowska%20%2B%20siedlecka%20Pustynia%20B%C5%82%C4%99dowska%202026"
   },
   {
-    "title": "Sob jelenia góra 2 runda h6 2026 jelenia góra",
-    "fullDescription": "H6 Rally - 2 Runda 2026 Jelenia Góra 14-11-2026 - 14-11-2026 Jelenia Góra Zapraszamy wszystkich na drugą rundę H6 czyli 6 godziny wyścig przeprawowy w taśmach.Będziemy mieć 4 klasy. …",
-    "subCategory": "Tor / Wyścig / Time Attack",
-    "location": "Jelenia Góra",
-    "locationType": "exact",
-    "distanceKm": 328,
-    "autoStarred": false,
-    "starred": false,
-    "date": "14-11-2026",
-    "source": "https://www.google.com/search?q=Sob%20jelenia%20g%C3%B3ra%202%20runda%20h6%202026%20jelenia%20g%C3%B3ra%20Jelenia%20G%C3%B3ra%202026"
-  },
-  {
-    "title": "Jura suv-em - wieczorową porą !",
-    "fullDescription": "Jura Suv-Em - Wieczorową Porą ! - 14.11.2026 14-11-2026 - 14-11-2026 Jura Krakowsko-Częstochowska Czy na Jurze po zmroku straszy??!! Dowiemy się już 14.11.2026 Zapraszamy Was do wspólnej zabawy po …",
-    "subCategory": "Zlot / Spot / Spotkanie",
-    "location": "Jura",
-    "locationType": "approximate",
-    "distanceKm": 158,
-    "autoStarred": false,
-    "starred": false,
-    "date": "14.11.2026",
-    "source": "https://www.google.com/search?q=Jura%20suv-em%20-%20wieczorow%C4%85%20por%C4%85%20%21%20Jura%202026"
-  },
-  {
     "title": "Iii letni zlot gruzrally jamajka!",
     "fullDescription": "III Letni Zlot Gruzrally Jamajka! 19-11-2026 - 22-11-2026 Hotel Galicja Ulanów Chcesz zacząć przygodę z nami, a obawiasz się jechac daleko?JAMAJKA! Letni, listopadowy zlot GruzRally na Roztoczu. …",
     "subCategory": "Rajd Przeprawowy / Trophy",
@@ -394,18 +358,6 @@
     "starred": false,
     "date": "19-11-2026",
     "source": "https://www.google.com/search?q=Iii%20letni%20zlot%20gruzrally%20jamajka%21%20Nieznana%202026"
-  },
-  {
-    "title": "Andrzejki 2026 z waza 4x4 i offroad mania 4x4",
-    "fullDescription": "Andrzejki 2026 Z Waza 4x4 I Offroad Mania 4x4 20-11-2026 - 22-11-2026 Kazimierza Wielka Offroadowe Andrzejki 2026 z biesiadą i muzyką na żywo! W nowo powstałym lokalu na Wyspie w …",
-    "subCategory": "Rajd Przeprawowy / Trophy",
-    "location": "Kazimierza Wielka",
-    "locationType": "exact",
-    "distanceKm": 189,
-    "autoStarred": false,
-    "starred": false,
-    "date": "20-11-2026",
-    "source": "https://www.google.com/search?q=Andrzejki%202026%20z%20waza%204x4%20i%20offroad%20mania%204x4%20Kazimierza%20Wielka%202026"
   },
   {
     "title": "Szlakiem sudeckich zamków. rodzinny weekend 4x4",
@@ -420,16 +372,16 @@
     "source": "https://www.google.com/search?q=Szlakiem%20sudeckich%20zamk%C3%B3w.%20rodzinny%20weekend%204x4%20Kotlina%20Jeleniog%C3%B3rska%202026"
   },
   {
-    "title": "Pustynia błędowska & pustynia siedlecka",
-    "fullDescription": "Pustynia Błędowska & Pustynia Siedlecka 21-11-2026 - 21-11-2026 Pustynia Błędowska ​ OFF-ROAD JURA: PUSTYNIA BŁĘDOWSKA PUSTYNIA SIEDLECKA ​ Data: 21 listopada Czas trwania: 9:00 – 17:00​ …",
+    "title": "Andrzejki 2026 z waza 4x4 i offroad mania 4x4",
+    "fullDescription": "Andrzejki 2026 Z Waza 4x4 I Offroad Mania 4x4 20-11-2026 - 22-11-2026 Kazimierza Wielka Offroadowe Andrzejki 2026 z biesiadą i muzyką na żywo! W nowo powstałym lokalu na Wyspie w …",
     "subCategory": "Rajd Przeprawowy / Trophy",
-    "location": "Pustynia Siedlecka",
-    "locationType": "approximate",
-    "distanceKm": 174,
+    "location": "Kazimierza Wielka",
+    "locationType": "exact",
+    "distanceKm": 189,
     "autoStarred": false,
     "starred": false,
-    "date": "21-11-2026",
-    "source": "https://www.google.com/search?q=Pustynia%20b%C5%82%C4%99dowska%20%26%20pustynia%20siedlecka%20Pustynia%20Siedlecka%202026"
+    "date": "20-11-2026",
+    "source": "https://www.google.com/search?q=Andrzejki%202026%20z%20waza%204x4%20i%20offroad%20mania%204x4%20Kazimierza%20Wielka%202026"
   },
   {
     "title": "Konwój pilica",
@@ -454,6 +406,18 @@
     "starred": false,
     "date": "21-11-2026",
     "source": "https://www.google.com/search?q=Szlakiem%20umocnie%C5%84%20wa%C5%82u%20pomorskiego%20g%C5%82usko-dezdenko-santok%20Wa%C5%82%20Pomorski%202026"
+  },
+  {
+    "title": "Pustynia błędowska & pustynia siedlecka",
+    "fullDescription": "Pustynia Błędowska & Pustynia Siedlecka 21-11-2026 - 21-11-2026 Pustynia Błędowska ​ OFF-ROAD JURA: PUSTYNIA BŁĘDOWSKA PUSTYNIA SIEDLECKA ​ Data: 21 listopada Czas trwania: 9:00 – 17:00​ …",
+    "subCategory": "Rajd Przeprawowy / Trophy",
+    "location": "Pustynia Siedlecka",
+    "locationType": "approximate",
+    "distanceKm": 174,
+    "autoStarred": false,
+    "starred": false,
+    "date": "21-11-2026",
+    "source": "https://www.google.com/search?q=Pustynia%20b%C5%82%C4%99dowska%20%26%20pustynia%20siedlecka%20Pustynia%20Siedlecka%202026"
   },
   {
     "title": "Listopadowe wyzwanie",
@@ -504,18 +468,6 @@
     "source": "https://www.google.com/search?q=Bedrock%204x4%20-%20odkryj%20jurajskie%20kamienio%C5%82omy%20Jura%202026"
   },
   {
-    "title": "Konwój jurajskie szlaki - weekendd 4x4",
-    "fullDescription": "Z Konwój Jurajskie Szlaki - Weekendd 4x4 28-11-2026 - 29-11-2026 Włodowice Zapraszamy na weekendowy Z Konwój Jurajskie Szlaki.Proponujemy ciekawy i przepełniony ślicznymi panoramami wapiennych skał i urokliwych, …",
-    "subCategory": "Wyprawa Turystyczna / 4x4",
-    "location": "Jurajskie",
-    "locationType": "approximate",
-    "distanceKm": 158,
-    "autoStarred": false,
-    "starred": false,
-    "date": "28-11-2026",
-    "source": "https://www.google.com/search?q=Konw%C3%B3j%20jurajskie%20szlaki%20-%20weekendd%204x4%20Jurajskie%202026"
-  },
-  {
     "title": "Ku morzu, stare drawsko- podborsko -kołobrzeg",
     "fullDescription": "Wyprawa Ku Morzu, Stare Drawsko- Podborsko -Kołobrzeg 28-11-2026 Stare Drawsko Trasa ma charakter wyprawowo-turystyczny, choć będzie też zwiedzanie miejsc historycznych i malowniczych. W zależności od pogody …",
     "subCategory": "Wyprawa Turystyczna / 4x4",
@@ -526,6 +478,18 @@
     "starred": false,
     "date": "28-11-2026",
     "source": "https://www.google.com/search?q=Ku%20morzu%2C%20stare%20drawsko-%20podborsko%20-ko%C5%82obrzeg%20Drawsko%202026"
+  },
+  {
+    "title": "Konwój jurajskie szlaki - weekendd 4x4",
+    "fullDescription": "Z Konwój Jurajskie Szlaki - Weekendd 4x4 28-11-2026 - 29-11-2026 Włodowice Zapraszamy na weekendowy Z Konwój Jurajskie Szlaki.Proponujemy ciekawy i przepełniony ślicznymi panoramami wapiennych skał i urokliwych, …",
+    "subCategory": "Wyprawa Turystyczna / 4x4",
+    "location": "Jurajskie",
+    "locationType": "approximate",
+    "distanceKm": 158,
+    "autoStarred": false,
+    "starred": false,
+    "date": "28-11-2026",
+    "source": "https://www.google.com/search?q=Konw%C3%B3j%20jurajskie%20szlaki%20-%20weekendd%204x4%20Jurajskie%202026"
   },
   {
     "title": "Smok linowładny - rodzinne pieczątki na szlaku - egta",
