@@ -1,39 +1,15 @@
 [
   {
-    "title": "Praga golden cabrio – wyjątkowy przedwojenny kabriolet z czech",
-    "fullDescription": "Praga Golden Cabrio – wyjątkowy przedwojenny kabriolet z Czech 25 października 2026",
-    "subCategory": "Zlot / Spot / Spotkanie",
-    "location": "Nieznana",
-    "locationType": "unknown",
-    "distanceKm": null,
-    "autoStarred": false,
-    "starred": false,
-    "date": "25 października",
-    "source": "https://klasyki24.pl/praga-golden-cabrio/"
-  },
-  {
-    "title": "Podstawowe szkolenie 4x4",
-    "fullDescription": "25.10.2026 Podstawowe Szkolenie 4x4 25-10-2026 Roździeńskiego 2b, Piekary Śląskie, Poland Rodzaj wydarzenia:SZKOLENIE 4X4 DLA POCZĄTKUJĄCYCHOdkryj Potencjał swojej terenówki. Poznaj fascynujący świat jazdy terenowej podczas jednodniowego szkolenia …",
-    "subCategory": "Szkolenie / Trening",
-    "location": "Piekary",
-    "locationType": "exact",
-    "distanceKm": 194,
-    "autoStarred": false,
-    "starred": false,
-    "date": "25.10.2026",
-    "source": "https://www.google.com/search?q=Podstawowe%20szkolenie%204x4%20Piekary%202026"
-  },
-  {
     "title": "Hello in - nocne pieczątki na szlaku",
     "fullDescription": "30.10.2026 - Hello In - Pieczątki Na Szlaku 30-10-2026 Szutrowa, Kroczyce, Poland EASY GAME TRACK ADVENTURE - \"Hallo In\" - trasa #6Nocne, rodzinne pieczątki na szlaku.Data: 30.10.2026 r.; …",
     "subCategory": "Wyprawa Turystyczna / 4x4",
-    "location": "Kroczyce",
-    "locationType": "exact",
+    "location": "Jura",
+    "locationType": "approximate",
     "distanceKm": 158,
     "autoStarred": false,
     "starred": false,
     "date": "30.10.2026",
-    "source": "https://www.google.com/search?q=Hello%20in%20-%20nocne%20piecz%C4%85tki%20na%20szlaku%20Kroczyce%202026"
+    "source": "https://www.google.com/search?q=Hello%20in%20-%20nocne%20piecz%C4%85tki%20na%20szlaku%20Jura%202026"
   },
   {
     "title": "Halloween - nocna wyprawa - świętokrzyskie wyjazdy terenowe",
@@ -46,6 +22,18 @@
     "starred": false,
     "date": "30-10-2026",
     "source": "https://www.google.com/search?q=Halloween%20-%20nocna%20wyprawa%20-%20%C5%9Bwi%C4%99tokrzyskie%20wyjazdy%20terenowe%20%C5%9Awi%C4%99tokrzyskie%202026"
+  },
+  {
+    "title": "Chop shop night spot",
+    "fullDescription": "Chop Shop Night Spot 31-10-2026 CHOP SHOP Garage CHOP SHOP NIGHT SPOT Sobota 31.10.2026 Start: 19:00 Chop Shop Garage, GdańskRobimy wieczorny spot pod warsztatem …",
+    "subCategory": "Zlot / Spot / Spotkanie",
+    "location": "Nieznana",
+    "locationType": "unknown",
+    "distanceKm": null,
+    "autoStarred": false,
+    "starred": false,
+    "date": "31-10-2026",
+    "source": "https://www.google.com/search?q=Chop%20shop%20night%20spot%20Nieznana%202026"
   },
   {
     "title": "Jura z duchami z ekipa piaskownica 4x4",
@@ -70,18 +58,6 @@
     "starred": false,
     "date": "31-10-2026",
     "source": "https://www.google.com/search?q=Jeepandgrille%20G%C3%B3ra%20Kalwaria%202026"
-  },
-  {
-    "title": "Chop shop night spot",
-    "fullDescription": "Chop Shop Night Spot 31-10-2026 CHOP SHOP Garage CHOP SHOP NIGHT SPOT Sobota 31.10.2026 Start: 19:00 Chop Shop Garage, GdańskRobimy wieczorny spot pod warsztatem …",
-    "subCategory": "Zlot / Spot / Spotkanie",
-    "location": "Nieznana",
-    "locationType": "unknown",
-    "distanceKm": null,
-    "autoStarred": false,
-    "starred": false,
-    "date": "31-10-2026",
-    "source": "https://www.google.com/search?q=Chop%20shop%20night%20spot%20Nieznana%202026"
   },
   {
     "title": "Pustynia błędowska - jura dla amatora",
@@ -132,18 +108,6 @@
     "source": "https://www.google.com/search?q=Hard%20smor%20quad%20-%20iii%20runda%20przeprawowego%20rajdu%20atv%20Nieznana%202026"
   },
   {
-    "title": "4×4, listopadowy offroad przez dzikie karpaty",
-    "fullDescription": "Rumunia 4×4, Listopadowy Offroad Przez Dzikie Karpaty 08-11-2026 - 14-11-2026 Oradea, 410545 Oradea, România Rumunia jesienią pachnie mokrym lasem, dymem z kominów i błotem unoszącym się spod terenowych opon.Jednego dnia …",
-    "subCategory": "Wyprawa Turystyczna / 4x4",
-    "location": "Rumunia",
-    "locationType": "exact",
-    "distanceKm": 755,
-    "autoStarred": false,
-    "starred": false,
-    "date": "08-11-2026",
-    "source": "https://www.google.com/search?q=4%C3%974%2C%20listopadowy%20offroad%20przez%20dzikie%20karpaty%20Rumunia%202026"
-  },
-  {
     "title": "Między wisłokiem a sanem.",
     "fullDescription": "Między Wisłokiem A Sanem. 08-11-2026 - 08-11-2026 Nowy Borek, 36-030 Błażowa, Polska Między Wisłokiem a Sanem rozciągają się malownicze wzniesienia Pogórza Dynowskiego. Zapraszamy na niedzielną tułaczkę po tym …",
     "subCategory": "Zlot / Spot / Spotkanie",
@@ -156,6 +120,18 @@
     "source": "https://www.google.com/search?q=Mi%C4%99dzy%20wis%C5%82okiem%20a%20sanem.%20Nieznana%202026"
   },
   {
+    "title": "4×4, listopadowy offroad przez dzikie karpaty",
+    "fullDescription": "Rumunia 4×4, Listopadowy Offroad Przez Dzikie Karpaty 08-11-2026 - 14-11-2026 Oradea, 410545 Oradea, România Rumunia jesienią pachnie mokrym lasem, dymem z kominów i błotem unoszącym się spod terenowych opon.Jednego dnia …",
+    "subCategory": "Wyprawa Turystyczna / 4x4",
+    "location": "Rumunia",
+    "locationType": "exact",
+    "distanceKm": 755,
+    "autoStarred": false,
+    "starred": false,
+    "date": "08-11-2026",
+    "source": "https://www.google.com/search?q=4%C3%974%2C%20listopadowy%20offroad%20przez%20dzikie%20karpaty%20Rumunia%202026"
+  },
+  {
     "title": "Underground16 - rodzinne pieczątki na szlaku - gra terenowa",
     "fullDescription": "11.11.2026 Underground16 - Rodzinne Pieczątki Na Szlaku - Gra Terenowa 11-11-2026 Częstochowa, Olsztyn, Żarki EASY GAME TRACK ADVENTURE - \"UNDERGROUND16\" - trasa #Terenoff'ki 2026Rodzinne pieczątki na szlaku.Data: 11.11.2026 r.; Godziny: …",
     "subCategory": "Wyprawa Turystyczna / 4x4",
@@ -166,18 +142,6 @@
     "starred": false,
     "date": "11.11.2026",
     "source": "https://www.google.com/search?q=Underground16%20-%20rodzinne%20piecz%C4%85tki%20na%20szlaku%20-%20gra%20terenowa%20Cz%C4%99stochowa%202026"
-  },
-  {
-    "title": "Narodowe święto niepodległości z ekipa piaskownica 4x4",
-    "fullDescription": "\"Narodowe Święto Niepodległości\" Z Ekipa Piaskownica 4x4 - 11.11.2026 11-11-2026 - 11-11-2026 Jura Krakowsko-Częstochowska NARODOWE ŚWIĘTO NIEPODLEGŁOŚCIZapraszamy na wyjątkową, niepodległościową przygodę 4x4 po terenach Śląska i Zagłębia!Naszą trasę rozpoczniemy na …",
-    "subCategory": "Rajd Przeprawowy / Trophy",
-    "location": "Jura",
-    "locationType": "approximate",
-    "distanceKm": 158,
-    "autoStarred": false,
-    "starred": false,
-    "date": "11.11.2026",
-    "source": "https://www.google.com/search?q=Narodowe%20%C5%9Bwi%C4%99to%20niepodleg%C5%82o%C5%9Bci%20z%20ekipa%20piaskownica%204x4%20Jura%202026"
   },
   {
     "title": "Dzień niepodległości 4x4 - jura w terenie",
@@ -202,6 +166,18 @@
     "starred": false,
     "date": "11-11-2026",
     "source": "https://www.google.com/search?q=Niepodleg%C5%82o%C5%9Bci%20e%C5%82k%20E%C5%82k%202026"
+  },
+  {
+    "title": "Narodowe święto niepodległości z ekipa piaskownica 4x4",
+    "fullDescription": "\"Narodowe Święto Niepodległości\" Z Ekipa Piaskownica 4x4 - 11.11.2026 11-11-2026 - 11-11-2026 Jura Krakowsko-Częstochowska NARODOWE ŚWIĘTO NIEPODLEGŁOŚCIZapraszamy na wyjątkową, niepodległościową przygodę 4x4 po terenach Śląska i Zagłębia!Naszą trasę rozpoczniemy na …",
+    "subCategory": "Rajd Przeprawowy / Trophy",
+    "location": "Jura",
+    "locationType": "approximate",
+    "distanceKm": 158,
+    "autoStarred": false,
+    "starred": false,
+    "date": "11.11.2026",
+    "source": "https://www.google.com/search?q=Narodowe%20%C5%9Bwi%C4%99to%20niepodleg%C5%82o%C5%9Bci%20z%20ekipa%20piaskownica%204x4%20Jura%202026"
   },
   {
     "title": "Jura dla amatora - między jeziorami",
@@ -312,20 +288,8 @@
     "source": "https://www.google.com/search?q=Szlakiem%20sudeckich%20zamk%C3%B3w.%20rodzinny%20weekend%204x4%20Kotlina%20Jeleniog%C3%B3rska%202026"
   },
   {
-    "title": "Quad meeting by cozynest drive",
-    "fullDescription": "Quad Meeting By Cozynest Drive 21-11-2026 - 21-11-2026 Promenada Zdrojowa 12, 19-500 Gołdap, Poland QUAD MEETING 2026 | COZYNEST DRIVE21 LISTOPADA 2026 | START 11:00 | GOŁDAPNie wiemy, jaka będzie …",
-    "subCategory": "Zlot / Spot / Spotkanie",
-    "location": "Gołdap",
-    "locationType": "exact",
-    "distanceKm": 299,
-    "autoStarred": false,
-    "starred": false,
-    "date": "21-11-2026",
-    "source": "https://www.google.com/search?q=Quad%20meeting%20by%20cozynest%20drive%20Go%C5%82dap%202026"
-  },
-  {
-    "title": "Pustynia błędowska & pustynia siedlecka",
-    "fullDescription": "Pustynia Błędowska & Pustynia Siedlecka 21-11-2026 - 21-11-2026 Pustynia Błędowska ​ OFF-ROAD JURA: PUSTYNIA BŁĘDOWSKA PUSTYNIA SIEDLECKA ​ Data: 21 listopada Czas trwania: 9:00 – 17:00​ …",
+    "title": "Listopadowe wyzwanie",
+    "fullDescription": "Listopadowe Wyzwanie 21-11-2026 - 21-11-2026 Wygryzów 4x4 ​ WYGRYZÓW 4x4: LISTOPADOWE WYZWANIE STEMPLOWE ​Szykujcie czyste karty drogowe i mocne nerwy! Przed nami listopadowa …",
     "subCategory": "Rajd Przeprawowy / Trophy",
     "location": "Pustynia Siedlecka",
     "locationType": "approximate",
@@ -333,7 +297,7 @@
     "autoStarred": false,
     "starred": false,
     "date": "21-11-2026",
-    "source": "https://www.google.com/search?q=Pustynia%20b%C5%82%C4%99dowska%20%26%20pustynia%20siedlecka%20Pustynia%20Siedlecka%202026"
+    "source": "https://www.google.com/search?q=Listopadowe%20wyzwanie%20Pustynia%20Siedlecka%202026"
   },
   {
     "title": "Konwój pilica",
@@ -348,28 +312,16 @@
     "source": "https://www.google.com/search?q=Konw%C3%B3j%20pilica%20Pilica%202026"
   },
   {
-    "title": "Szlakiem umocnień wału pomorskiego głusko-dezdenko-santok",
-    "fullDescription": "Wyprawa Szlakiem Umocnień Wału Pomorskiego Głusko-Dezdenko-Santok 21-11-2026 Głusko Trasa ma charakter turystyczny i wiedzie przez tereny głównie leśne, wśród których schowane są umocnienia Wału …",
-    "subCategory": "Wyprawa Turystyczna / 4x4",
-    "location": "Wał Pomorski",
-    "locationType": "approximate",
-    "distanceKm": 305,
+    "title": "Quad meeting by cozynest drive",
+    "fullDescription": "Quad Meeting By Cozynest Drive 21-11-2026 - 21-11-2026 Promenada Zdrojowa 12, 19-500 Gołdap, Poland QUAD MEETING 2026 | COZYNEST DRIVE21 LISTOPADA 2026 | START 11:00 | GOŁDAPNie wiemy, jaka będzie …",
+    "subCategory": "Zlot / Spot / Spotkanie",
+    "location": "Gołdap",
+    "locationType": "exact",
+    "distanceKm": 299,
     "autoStarred": false,
     "starred": false,
     "date": "21-11-2026",
-    "source": "https://www.google.com/search?q=Szlakiem%20umocnie%C5%84%20wa%C5%82u%20pomorskiego%20g%C5%82usko-dezdenko-santok%20Wa%C5%82%20Pomorski%202026"
-  },
-  {
-    "title": "Listopadowe wyzwanie",
-    "fullDescription": "Listopadowe Wyzwanie 21-11-2026 - 21-11-2026 Wygryzów 4x4 ​ WYGRYZÓW 4x4: LISTOPADOWE WYZWANIE STEMPLOWE ​Szykujcie czyste karty drogowe i mocne nerwy! Przed nami listopadowa …",
-    "subCategory": "Rajd Przeprawowy / Trophy",
-    "location": "Pustynia Siedlecka",
-    "locationType": "approximate",
-    "distanceKm": 174,
-    "autoStarred": false,
-    "starred": false,
-    "date": "21-11-2026",
-    "source": "https://www.google.com/search?q=Listopadowe%20wyzwanie%20Pustynia%20Siedlecka%202026"
+    "source": "https://www.google.com/search?q=Quad%20meeting%20by%20cozynest%20drive%20Go%C5%82dap%202026"
   },
   {
     "title": "Szukamy najlepszej terenówki | customcomplex adventure",
@@ -384,6 +336,30 @@
     "source": "https://www.google.com/search?q=Szukamy%20najlepszej%20teren%C3%B3wki%20%7C%20customcomplex%20adventure%20Nieznana%202026"
   },
   {
+    "title": "Szlakiem umocnień wału pomorskiego głusko-dezdenko-santok",
+    "fullDescription": "Wyprawa Szlakiem Umocnień Wału Pomorskiego Głusko-Dezdenko-Santok 21-11-2026 Głusko Trasa ma charakter turystyczny i wiedzie przez tereny głównie leśne, wśród których schowane są umocnienia Wału …",
+    "subCategory": "Wyprawa Turystyczna / 4x4",
+    "location": "Wał Pomorski",
+    "locationType": "approximate",
+    "distanceKm": 305,
+    "autoStarred": false,
+    "starred": false,
+    "date": "21-11-2026",
+    "source": "https://www.google.com/search?q=Szlakiem%20umocnie%C5%84%20wa%C5%82u%20pomorskiego%20g%C5%82usko-dezdenko-santok%20Wa%C5%82%20Pomorski%202026"
+  },
+  {
+    "title": "Pustynia błędowska & pustynia siedlecka",
+    "fullDescription": "Pustynia Błędowska & Pustynia Siedlecka 21-11-2026 - 21-11-2026 Pustynia Błędowska ​ OFF-ROAD JURA: PUSTYNIA BŁĘDOWSKA PUSTYNIA SIEDLECKA ​ Data: 21 listopada Czas trwania: 9:00 – 17:00​ …",
+    "subCategory": "Rajd Przeprawowy / Trophy",
+    "location": "Pustynia Siedlecka",
+    "locationType": "approximate",
+    "distanceKm": 174,
+    "autoStarred": false,
+    "starred": false,
+    "date": "21-11-2026",
+    "source": "https://www.google.com/search?q=Pustynia%20b%C5%82%C4%99dowska%20%26%20pustynia%20siedlecka%20Pustynia%20Siedlecka%202026"
+  },
+  {
     "title": "Bedrock 4x4 - odkryj jurajskie kamieniołomy",
     "fullDescription": "Bedrock 4x4 - Odkryj Jurajskie Kamieniołomy 22-11-2026 Jura Krakowsko-Częstochowska Witajcie Zapraszamy na kolejną imprezę z cyklu BedRock 4x4.Jest to wyjazd o charakterze turystyczno offroadowym po …",
     "subCategory": "Wyprawa Turystyczna / 4x4",
@@ -396,16 +372,16 @@
     "source": "https://www.google.com/search?q=Bedrock%204x4%20-%20odkryj%20jurajskie%20kamienio%C5%82omy%20Jura%202026"
   },
   {
-    "title": "Konwój jurajskie szlaki - weekendd 4x4",
-    "fullDescription": "Z Konwój Jurajskie Szlaki - Weekendd 4x4 28-11-2026 - 29-11-2026 Włodowice Zapraszamy na weekendowy Z Konwój Jurajskie Szlaki.Proponujemy ciekawy i przepełniony ślicznymi panoramami wapiennych skał i urokliwych, …",
-    "subCategory": "Wyprawa Turystyczna / 4x4",
-    "location": "Jurajskie",
-    "locationType": "approximate",
-    "distanceKm": 158,
+    "title": "Podstawowe szkolenie 4x4",
+    "fullDescription": "22.11.2026 Podstawowe Szkolenie 4x4 22-11-2026 Roździeńskiego 2b, Piekary Śląskie, Poland Rodzaj wydarzenia:SZKOLENIE 4X4 DLA POCZĄTKUJĄCYCHOdkryj Potencjał swojej terenówki. Poznaj fascynujący świat jazdy terenowej podczas jednodniowego szkolenia …",
+    "subCategory": "Szkolenie / Trening",
+    "location": "Piekary",
+    "locationType": "exact",
+    "distanceKm": 194,
     "autoStarred": false,
     "starred": false,
-    "date": "28-11-2026",
-    "source": "https://www.google.com/search?q=Konw%C3%B3j%20jurajskie%20szlaki%20-%20weekendd%204x4%20Jurajskie%202026"
+    "date": "22.11.2026",
+    "source": "https://www.google.com/search?q=Podstawowe%20szkolenie%204x4%20Piekary%202026"
   },
   {
     "title": "Ku morzu, stare drawsko- podborsko -kołobrzeg",
@@ -418,6 +394,18 @@
     "starred": false,
     "date": "28-11-2026",
     "source": "https://www.google.com/search?q=Ku%20morzu%2C%20stare%20drawsko-%20podborsko%20-ko%C5%82obrzeg%20Drawsko%202026"
+  },
+  {
+    "title": "Konwój jurajskie szlaki - weekendd 4x4",
+    "fullDescription": "Z Konwój Jurajskie Szlaki - Weekendd 4x4 28-11-2026 - 29-11-2026 Włodowice Zapraszamy na weekendowy Z Konwój Jurajskie Szlaki.Proponujemy ciekawy i przepełniony ślicznymi panoramami wapiennych skał i urokliwych, …",
+    "subCategory": "Wyprawa Turystyczna / 4x4",
+    "location": "Jurajskie",
+    "locationType": "approximate",
+    "distanceKm": 158,
+    "autoStarred": false,
+    "starred": false,
+    "date": "28-11-2026",
+    "source": "https://www.google.com/search?q=Konw%C3%B3j%20jurajskie%20szlaki%20-%20weekendd%204x4%20Jurajskie%202026"
   },
   {
     "title": "Smok linowładny - rodzinne pieczątki na szlaku - egta",
