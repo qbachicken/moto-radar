@@ -504,8 +504,8 @@
     "source": "https://siescigam.pl/kalendarz/7326/rajd-niepodleglosci-4x4-czyli-tropem-majora-hubala-dla-twardzieli?category=TYPE_CARS_4X4"
   },
   {
-    "title": "II TURA - Rajd niepodległości 4x4 czyli tropem majora hubala",
-    "fullDescription": "Nowa Nowo dodana impreza 13.11.2026 15.11.2026 pt-ndz ŚWIĘTOKRZYSKIE Skarżysko-Kamienna II TURA - Rajd Niepodległości 4x4 czyli Tropem Majora Hubala",
+    "title": "Ii tura rajd niepodleglosci 4x4 czyli tropem majora hubala",
+    "fullDescription": "13.11.2026 15.11.2026 pt-ndz ŚWIĘTOKRZYSKIE Skarżysko-Kamienna II TURA - Rajd Niepodległości 4x4 czyli Tropem Majora Hubala",
     "subCategory": "Rajd Przeprawowy / Trophy",
     "location": "Skarżysko",
     "locationType": "exact",
@@ -513,7 +513,7 @@
     "autoStarred": false,
     "starred": false,
     "date": "13.11.2026",
-    "source": "https://www.google.com/search?q=II%20TURA%20-%20Rajd%20niepodleg%C5%82o%C5%9Bci%204x4%20czyli%20tropem%20majora%20hubala%20Skar%C5%BCysko%202026"
+    "source": "https://siescigam.pl/kalendarz/7341/ii-tura-rajd-niepodleglosci-4x4-czyli-tropem-majora-hubala?category=TYPE_CARS_4X4"
   },
   {
     "title": "Nowa nowo dodana impreza 14.11.2026 sob mazowieckie waganka piknik off-road z baw 212",
@@ -538,5 +538,41 @@
     "starred": false,
     "date": "21.11.2026",
     "source": "https://siescigam.pl/kalendarz/7303/cobra-lajtowy-puchar-ed4-final-glowaczow?category=TYPE_CARS_4X4"
+  },
+  {
+    "title": "Nowa nowo dodana impreza 22.11.2026 ndz podkarpackie żurawica quad chellange",
+    "fullDescription": "Nowa Nowo dodana impreza 22.11.2026 ndz PODKARPACKIE Żurawica Quad Chellange",
+    "subCategory": "Zlot / Spot / Spotkanie",
+    "location": "Nieznana",
+    "locationType": "unknown",
+    "distanceKm": null,
+    "autoStarred": false,
+    "starred": false,
+    "date": "22.11.2026",
+    "source": "https://www.google.com/search?q=Nowa%20nowo%20dodana%20impreza%2022.11.2026%20ndz%20podkarpackie%20%C5%BCurawica%20quad%20chellange%20Nieznana%202026"
+  },
+  {
+    "title": "Nowa nowo dodana impreza 05.12.2026 06.12.2026 sob-ndz mazowieckie szydłowiec szlakiem walki 4x4 czyli wyprawa po trójstyku",
+    "fullDescription": "Nowa Nowo dodana impreza 05.12.2026 06.12.2026 sob-ndz MAZOWIECKIE Szydłowiec Szlakiem Walki 4x4 czyli Wyprawa po Trójstyku",
+    "subCategory": "Wyprawa Turystyczna / 4x4",
+    "location": "Nieznana",
+    "locationType": "unknown",
+    "distanceKm": null,
+    "autoStarred": false,
+    "starred": false,
+    "date": "05.12.2026",
+    "source": "https://www.google.com/search?q=Nowa%20nowo%20dodana%20impreza%2005.12.2026%2006.12.2026%20sob-ndz%20mazowieckie%20szyd%C5%82owiec%20szlakiem%20walki%204x4%20czyli%20wyprawa%20po%20tr%C3%B3jstyku%20Nieznana%202026"
+  },
+  {
+    "title": "Nowa nowo dodana impreza 05.12.2026 sob wielkopolskie zaniemyśl wyprawa off-road vol. ii",
+    "fullDescription": "Nowa Nowo dodana impreza 05.12.2026 sob WIELKOPOLSKIE Zaniemyśl WYPRAWA OFF-ROAD VOL. II",
+    "subCategory": "Wyprawa Turystyczna / 4x4",
+    "location": "Nieznana",
+    "locationType": "unknown",
+    "distanceKm": null,
+    "autoStarred": false,
+    "starred": false,
+    "date": "05.12.2026",
+    "source": "https://www.google.com/search?q=Nowa%20nowo%20dodana%20impreza%2005.12.2026%20sob%20wielkopolskie%20zaniemy%C5%9Bl%20wyprawa%20off-road%20vol.%20ii%20Nieznana%202026"
   }
 ]
