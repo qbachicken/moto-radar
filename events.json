@@ -384,16 +384,16 @@
     "source": "https://www.google.com/search?q=Anlage%20mitte.%20miko%C5%82ajki%20w%20terenie.%20rodzinny%20weekend%204x4%20Nieznana%202026"
   },
   {
-    "title": "Mikołajki 4x4 2026",
-    "fullDescription": "Mikołajki 4x4 2026 05-12-2026 - 06-12-2026 EŁK Zachęcam do wspólnej przygody w terenie, podczas której połączymy ducha rywalizacji z eksplorowaniem zakątków Pojezierza Ełckiego.Pierwszy …",
-    "subCategory": "Rajd Przeprawowy / Trophy",
-    "location": "Ełk",
-    "locationType": "exact",
-    "distanceKm": 256,
+    "title": "Jura suv-em- mikołajki",
+    "fullDescription": "Jura Suv-Em- Mikołajki - 5.12.2026 05-12-2026 - 05-12-2026 Jura Krakowsko-Czestochowska AKTYWNA i RODZINNA SOBOTA - 5.12.2026Dobra zabawa bez ciśnienia i w doborowym towarzystwie, a do tego …",
+    "subCategory": "Wyprawa Turystyczna / 4x4",
+    "location": "Jura",
+    "locationType": "approximate",
+    "distanceKm": 158,
     "autoStarred": false,
     "starred": false,
-    "date": "05-12-2026",
-    "source": "https://www.google.com/search?q=Miko%C5%82ajki%204x4%202026%20E%C5%82k%202026"
+    "date": "5.12.2026",
+    "source": "https://www.google.com/search?q=Jura%20suv-em-%20miko%C5%82ajki%20Jura%202026"
   },
   {
     "title": "Mikołajkowy zlot quadowy 2026 by cozynest drive",
@@ -432,6 +432,18 @@
     "source": "https://www.google.com/search?q=Konw%C3%B3j%20za%C5%82uski%20-%20sobota%204x4%20Za%C5%82uski%202026"
   },
   {
+    "title": "Mikołajki 4x4 2026",
+    "fullDescription": "Mikołajki 4x4 2026 05-12-2026 - 06-12-2026 EŁK Zachęcam do wspólnej przygody w terenie, podczas której połączymy ducha rywalizacji z eksplorowaniem zakątków Pojezierza Ełckiego.Pierwszy …",
+    "subCategory": "Rajd Przeprawowy / Trophy",
+    "location": "Ełk",
+    "locationType": "exact",
+    "distanceKm": 256,
+    "autoStarred": false,
+    "starred": false,
+    "date": "05-12-2026",
+    "source": "https://www.google.com/search?q=Miko%C5%82ajki%204x4%202026%20E%C5%82k%202026"
+  },
+  {
     "title": "Ogólnopolska terenowa integracja dla choinki”",
     "fullDescription": "Ogólnopolska Terenowa Integracja „Dla Choinki” 06-12-2026 Bierawa, województwo opolskie Ogólnopolska Terenowa Integracja „dla Choinki” 2026 z MUTT GliwiceGrudzień, terenówki, wspólne spotkanie i pomaganie - trudno …",
     "subCategory": "Zlot / Spot / Spotkanie",
@@ -442,6 +454,18 @@
     "starred": false,
     "date": "06-12-2026",
     "source": "https://www.google.com/search?q=Og%C3%B3lnopolska%20terenowa%20integracja%20dla%20choinki%E2%80%9D%20Nieznana%202026"
+  },
+  {
+    "title": "Yeti 2026",
+    "fullDescription": "Yeti 2026 12-12-2026 - 13-12-2026 Rymanów YETI 2026.Zapraszamy do udziału w XI już edycji wyprawy pod nazwą „YETI” organizowaną przez Offroadowe Tułaczki …",
+    "subCategory": "Rajd Przeprawowy / Trophy",
+    "location": "Nieznana",
+    "locationType": "unknown",
+    "distanceKm": null,
+    "autoStarred": false,
+    "starred": false,
+    "date": "12-12-2026",
+    "source": "https://www.google.com/search?q=Yeti%202026%20Nieznana%202026"
   },
   {
     "title": "Jurze z cozynest drive",
@@ -466,18 +490,6 @@
     "starred": false,
     "date": "12-12-2026",
     "source": "https://www.google.com/search?q=Konw%C3%B3j%20niepor%C4%99t-%20z%C5%82otopolice%20Niepor%C4%99t%202026"
-  },
-  {
-    "title": "Yeti 2026",
-    "fullDescription": "Yeti 2026 12-12-2026 - 13-12-2026 Rymanów YETI 2026.Zapraszamy do udziału w XI już edycji wyprawy pod nazwą „YETI” organizowaną przez Offroadowe Tułaczki …",
-    "subCategory": "Rajd Przeprawowy / Trophy",
-    "location": "Nieznana",
-    "locationType": "unknown",
-    "distanceKm": null,
-    "autoStarred": false,
-    "starred": false,
-    "date": "12-12-2026",
-    "source": "https://www.google.com/search?q=Yeti%202026%20Nieznana%202026"
   },
   {
     "title": "Adventure sylwester",
