@@ -1,41 +1,5 @@
 [
   {
-    "title": "Pieczonego ziemniaka 4x4",
-    "fullDescription": "Rajd Pieczonego Ziemniaka 4x4 22-11-2026 Cegielnia Wierzchowina Cegielnia Wierzchowina, Łututu 4x4 Rybczewice Squad oraz Narcyz zapraszają na Rajd Pieczonego Ziemniaka 4x4 -Lepiej Upiec …",
-    "subCategory": "Rajd Przeprawowy / Trophy",
-    "location": "Nieznana",
-    "locationType": "unknown",
-    "distanceKm": null,
-    "autoStarred": false,
-    "starred": false,
-    "date": "22-11-2026",
-    "source": "https://www.google.com/search?q=Pieczonego%20ziemniaka%204x4%20Nieznana%202026"
-  },
-  {
-    "title": "Bedrock 4x4 - odkryj jurajskie kamieniołomy",
-    "fullDescription": "Bedrock 4x4 - Odkryj Jurajskie Kamieniołomy 22-11-2026 Jura Krakowsko-Częstochowska Witajcie Zapraszamy na kolejną imprezę z cyklu BedRock 4x4.Jest to wyjazd o charakterze turystyczno offroadowym po …",
-    "subCategory": "Wyprawa Turystyczna / 4x4",
-    "location": "Jura",
-    "locationType": "approximate",
-    "distanceKm": 158,
-    "autoStarred": false,
-    "starred": false,
-    "date": "22-11-2026",
-    "source": "https://www.google.com/search?q=Bedrock%204x4%20-%20odkryj%20jurajskie%20kamienio%C5%82omy%20Jura%202026"
-  },
-  {
-    "title": "Podstawowe szkolenie 4x4",
-    "fullDescription": "22.11.2026 Podstawowe Szkolenie 4x4 22-11-2026 Roździeńskiego 2b, Piekary Śląskie, Poland Rodzaj wydarzenia:SZKOLENIE 4X4 DLA POCZĄTKUJĄCYCHOdkryj Potencjał swojej terenówki. Poznaj fascynujący świat jazdy terenowej podczas jednodniowego szkolenia …",
-    "subCategory": "Szkolenie / Trening",
-    "location": "Piekary",
-    "locationType": "exact",
-    "distanceKm": 194,
-    "autoStarred": false,
-    "starred": false,
-    "date": "22.11.2026",
-    "source": "https://www.google.com/search?q=Podstawowe%20szkolenie%204x4%20Piekary%202026"
-  },
-  {
     "title": "Comiesięczny spot motoryzacyjny vannomadów pod krakowem",
     "fullDescription": "Comiesięczny Spot Motoryzacyjny Vannomadów Pod Krakowem 27-11-2026 - 27-11-2026 Punkt widokowy na Opactwo Benedyktynów w Tyńcu VanNomads zaprasza na Spot Motoryzacyjny VanNomadów pod Krakowem! Hej, VanNomadzi! Macie ochotę na luźne, niezobowiązujące spotkanie …",
     "subCategory": "Zlot / Spot / Spotkanie",
@@ -156,6 +120,18 @@
     "source": "https://www.google.com/search?q=Wypad%20%232%20%E2%80%93%20miko%C5%82ajkowy%20rodzinny%20overlanding%20Cz%C4%99stochowa%202026"
   },
   {
+    "title": "Konwój załuski - sobota 4x4",
+    "fullDescription": "Z Konwój Załuski - Sobota 4x4 05-12-2026 - 05-12-2026 Załuski (powiat płoński) Z Konwój Załuski to ciekawy jednodniowy wyjazd terenowy zarówno dla zaawansowanych i początkujących w terenie załóg.W …",
+    "subCategory": "Rajd Przeprawowy / Trophy",
+    "location": "Załuski",
+    "locationType": "exact",
+    "distanceKm": 67,
+    "autoStarred": false,
+    "starred": false,
+    "date": "05-12-2026",
+    "source": "https://www.google.com/search?q=Konw%C3%B3j%20za%C5%82uski%20-%20sobota%204x4%20Za%C5%82uski%202026"
+  },
+  {
     "title": "Mikołajkowy zlot quadowy 2026 by cozynest drive",
     "fullDescription": "Mikołajkowy Zlot Quadowy 2026 By Cozynest Drive 05-12-2026 - 06-12-2026 Promenada Zdrojowa 12, Gołdap MIKOŁAJKOWY ZLOT QUADOWY 2026 BY COZYNEST DRIVE REGENERACJA PRZYGODĄ! 5–6 grudnia 2026 r. Gołdap **Hotel Ventus …",
     "subCategory": "Zlot / Spot / Spotkanie",
@@ -180,18 +156,6 @@
     "source": "https://www.google.com/search?q=Off%20road%20vol%20.ii%2005.12.2026r.%20Nieznana%202026"
   },
   {
-    "title": "Mikołajki 4x4 2026",
-    "fullDescription": "Mikołajki 4x4 2026 05-12-2026 - 06-12-2026 EŁK Zachęcam do wspólnej przygody w terenie, podczas której połączymy ducha rywalizacji z eksplorowaniem zakątków Pojezierza Ełckiego.Pierwszy …",
-    "subCategory": "Rajd Przeprawowy / Trophy",
-    "location": "Ełk",
-    "locationType": "exact",
-    "distanceKm": 256,
-    "autoStarred": false,
-    "starred": false,
-    "date": "05-12-2026",
-    "source": "https://www.google.com/search?q=Miko%C5%82ajki%204x4%202026%20E%C5%82k%202026"
-  },
-  {
     "title": "Pustynia błędowska - jura dla amatora",
     "fullDescription": "05.12.2026 Pustynia Błędowska - Jura Dla Amatora 05-12-2026 Pustynia Błędowska i okolice Zaczynasz swoją przygodę z off-roadem?Nie musisz wiedzieć wszystkiego. Nie musisz mieć zmodyfikowanej terenówki ani doświadczenia zdobywanego …",
     "subCategory": "Rajd Przeprawowy / Trophy",
@@ -202,6 +166,18 @@
     "starred": false,
     "date": "05.12.2026",
     "source": "https://www.google.com/search?q=Pustynia%20b%C5%82%C4%99dowska%20-%20jura%20dla%20amatora%20Jura%202026"
+  },
+  {
+    "title": "Mikołajki 4x4 2026",
+    "fullDescription": "Mikołajki 4x4 2026 05-12-2026 - 06-12-2026 EŁK Zachęcam do wspólnej przygody w terenie, podczas której połączymy ducha rywalizacji z eksplorowaniem zakątków Pojezierza Ełckiego.Pierwszy …",
+    "subCategory": "Rajd Przeprawowy / Trophy",
+    "location": "Ełk",
+    "locationType": "exact",
+    "distanceKm": 256,
+    "autoStarred": false,
+    "starred": false,
+    "date": "05-12-2026",
+    "source": "https://www.google.com/search?q=Miko%C5%82ajki%204x4%202026%20E%C5%82k%202026"
   },
   {
     "title": "Jura suv-em- mikołajki",
@@ -216,18 +192,6 @@
     "source": "https://www.google.com/search?q=Jura%20suv-em-%20miko%C5%82ajki%20Jura%202026"
   },
   {
-    "title": "Konwój załuski - sobota 4x4",
-    "fullDescription": "Z Konwój Załuski - Sobota 4x4 05-12-2026 - 05-12-2026 Załuski (powiat płoński) Z Konwój Załuski to ciekawy jednodniowy wyjazd terenowy zarówno dla zaawansowanych i początkujących w terenie załóg.W …",
-    "subCategory": "Rajd Przeprawowy / Trophy",
-    "location": "Załuski",
-    "locationType": "exact",
-    "distanceKm": 67,
-    "autoStarred": false,
-    "starred": false,
-    "date": "05-12-2026",
-    "source": "https://www.google.com/search?q=Konw%C3%B3j%20za%C5%82uski%20-%20sobota%204x4%20Za%C5%82uski%202026"
-  },
-  {
     "title": "Ogólnopolska terenowa integracja dla choinki”",
     "fullDescription": "Ogólnopolska Terenowa Integracja „Dla Choinki” 06-12-2026 Bierawa, województwo opolskie Ogólnopolska Terenowa Integracja „dla Choinki” 2026 z MUTT GliwiceGrudzień, terenówki, wspólne spotkanie i pomaganie - trudno …",
     "subCategory": "Zlot / Spot / Spotkanie",
@@ -238,18 +202,6 @@
     "starred": false,
     "date": "06-12-2026",
     "source": "https://www.google.com/search?q=Og%C3%B3lnopolska%20terenowa%20integracja%20dla%20choinki%E2%80%9D%20Nieznana%202026"
-  },
-  {
-    "title": "Jurze z cozynest drive",
-    "fullDescription": "Na Jurze Z Cozynest Drive 12-12-2026 - 13-12-2026 Zamek Bobolice COZYNEST DRIVE NA JURZE | 12–13 GRUDNIA 2026 Zimą nie zwalniamy tempa. Zmieniamy tylko scenerię!Zapisz się …",
-    "subCategory": "Zlot / Spot / Spotkanie",
-    "location": "Nieznana",
-    "locationType": "unknown",
-    "distanceKm": null,
-    "autoStarred": false,
-    "starred": false,
-    "date": "12-12-2026",
-    "source": "https://www.google.com/search?q=Jurze%20z%20cozynest%20drive%20Nieznana%202026"
   },
   {
     "title": "Nie po sionym ekspres",
@@ -300,6 +252,18 @@
     "source": "https://www.google.com/search?q=Konw%C3%B3j%20niepor%C4%99t-%20z%C5%82otopolice%20Niepor%C4%99t%202026"
   },
   {
+    "title": "Jurze z cozynest drive",
+    "fullDescription": "Na Jurze Z Cozynest Drive 12-12-2026 - 13-12-2026 Zamek Bobolice COZYNEST DRIVE NA JURZE | 12–13 GRUDNIA 2026 Zimą nie zwalniamy tempa. Zmieniamy tylko scenerię!Zapisz się …",
+    "subCategory": "Zlot / Spot / Spotkanie",
+    "location": "Nieznana",
+    "locationType": "unknown",
+    "distanceKm": null,
+    "autoStarred": false,
+    "starred": false,
+    "date": "12-12-2026",
+    "source": "https://www.google.com/search?q=Jurze%20z%20cozynest%20drive%20Nieznana%202026"
+  },
+  {
     "title": "Adventure sylwester",
     "fullDescription": "Tunezja Adventure Sylwester 27-12-2026 - 07-01-2027 Tunezja To i tak najdłuższy możliwy czas wolnego — najpierw Święta, po drodze weekend, potem Nowy Rok …",
     "subCategory": "Wyprawa Turystyczna / 4x4",
@@ -334,18 +298,6 @@
     "starred": false,
     "date": "31.12.2026",
     "source": "https://www.google.com/search?q=Sylwester%20w%20terenie%20z%20ekipa%20piaskownica%204x4%20Jura%202026"
-  },
-  {
-    "title": "Ndz podkarpackie żurawica quad chellange",
-    "fullDescription": "22.11.2026 ndz PODKARPACKIE Żurawica Quad Chellange",
-    "subCategory": "Zlot / Spot / Spotkanie",
-    "location": "Nieznana",
-    "locationType": "unknown",
-    "distanceKm": null,
-    "autoStarred": false,
-    "starred": false,
-    "date": "22.11.2026",
-    "source": "https://siescigam.pl/kalendarz/7348/quad-chellange?category=TYPE_CARS_4X4"
   },
   {
     "title": "Szlakiem walki 4x4 czyli wyprawa po trojstyku",
